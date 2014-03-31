@@ -7,13 +7,14 @@
     <ui:define name="content">
 
 		<p>
-			<h5>
+			<h4>
 				Registered Users
-			</h5>
+			</h4>
 		</p>
-		
+		<div class="panel panel-default">
+		<div class="panel-heading"><small class="text text-info">Click Edit link to perform more actions.</small></div>
 		<h:dataTable value="#{userBean.findAll()}" var="user"
-					  styleClass="">
+					  styleClass="table table-bordered table-condensed table-hover table-responsive">
 			 <h:column>
 				 <f:facet name="header">Email</f:facet>
 					 #{user.email}
@@ -27,8 +28,7 @@
 					 #{user.amount}
 			 </h:column>
 		 </h:dataTable>
-
-
+		 </div>
 
     </ui:define>
 </ui:composition>

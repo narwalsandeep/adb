@@ -65,11 +65,11 @@ public class LoginBean implements Serializable {
         System.out.println("Password: " + this.passwd);
         try {	
 			request.login(this.email, this.passwd);
-        } catch (ServletException e) {
+			return "/user/home.xhtml";
+		} catch (ServletException e) {
             context.addMessage("loginForm:authError", new FacesMessage("Authentication Failed. Consider Registration."));
 			return "/login.xhtml";
         }
-        return "/index.xhtml";
     }
 
 	/**

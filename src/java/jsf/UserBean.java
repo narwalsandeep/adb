@@ -8,9 +8,11 @@ package jsf;
 
 import ejb.UserService;
 import entity.DbUser;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -18,8 +20,8 @@ import javax.inject.Named;
  * @author "as2d3f"
  */
 @Named
-@RequestScoped
-public class UserBean {
+@SessionScoped
+public class UserBean  implements Serializable {
 	
 	@EJB
     private UserService user;
@@ -31,11 +33,7 @@ public class UserBean {
 	public List<DbUser> findAll(){
 		return user.findAll();
 	}
-	
-	public List<DbUser> fineOneByEmail(){	
-		return user.findOneByEmail();
-	}
-	
+		
 	public UserService getUser() {
 		return user;
 	}

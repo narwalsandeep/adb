@@ -23,9 +23,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name="findAll",
-                query="SELECT u FROM DbUser  u"),
-    @NamedQuery(name="findByEmail",
-                query="SELECT u FROM DbUser u WHERE u.email = :email"),
+                query="SELECT user FROM DbUser user"),
+    @NamedQuery(name="findOneByEmail",
+                query="SELECT user FROM DbUser user WHERE user.email = :email"),
 }) 
 public class DbUser implements Serializable{
 

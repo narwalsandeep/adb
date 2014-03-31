@@ -20,8 +20,13 @@ public class TransactionBean {
     private TransactionService tx;
     
     private String senderEmail;
-    private String amount;
+    private Double amount;
 
+	public String doSend(){
+		tx.doSend(senderEmail,amount);
+		return "/transaction/success";
+	}
+	
 	public TransactionService getTx() {
 		return tx;
 	}
@@ -38,11 +43,11 @@ public class TransactionBean {
 		this.senderEmail = senderEmail;
 	}
 
-	public String getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 	

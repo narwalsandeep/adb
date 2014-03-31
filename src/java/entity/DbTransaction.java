@@ -35,6 +35,16 @@ public class DbTransaction implements Serializable {
 
     @NotNull
 	private String status;
+
+	public DbTransaction() {
+	}
+
+	public DbTransaction(Long sender, Long receiver, Double amount, String STATUS_SUCCESS) {
+		this.senderId = sender;
+		this.receiverId = receiver;
+		this.amount = amount;
+		this.status = STATUS_SUCCESS;
+	}
 	
 	@Override
 	public int hashCode() {

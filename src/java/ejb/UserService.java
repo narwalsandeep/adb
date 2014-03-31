@@ -7,17 +7,20 @@
 package ejb;
 
 import entity.DbUser;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author "as2d3f"
  */
 @Stateless
-public class UserService {
+public class UserService{
 
 	@PersistenceContext
     EntityManager em;
@@ -27,9 +30,17 @@ public class UserService {
         return user;
     }
 
-	public synchronized List<DbUser> findOneByEmail() {
-        List<DbUser> user = em.createNamedQuery("findOneByEmail").getResultList();
-        return user;
-    }
+	/**
+	 *
+	 * @param email
+	 * @return
+	 */
+	public synchronized DbUser findOneByEmail(String email) {
+		
+		TypedQuery<DbUser> query = em.createNamedQuery("findOneByEmail",DbUser.class);
+        DbUser user = query.setParameter("email", email).getSingleResult();
+		
+		return user;
+	}
 	
 }
