@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+
+		<p>
+			<h5>
+				Registered Users
+			</h5>
+		</p>
+		
+		<h:dataTable value="#{userBean.findAll}" var="user"
+					  styleClass="">
+			 <h:column>
+				 <f:facet name="header">Email</f:facet>
+					 #{user.email}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Name</f:facet>
+					 #{user.name}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Amount</f:facet>
+					 #{user.amount}
+			 </h:column>
+		 </h:dataTable>
+
+
+
+    </ui:define>
+</ui:composition>

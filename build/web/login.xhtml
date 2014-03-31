@@ -1,0 +1,49 @@
+<ui:composition template="/WEB-INF/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+		<p>
+			<h4>Login</h4>
+		</p>
+		<h:form  id="loginForm" styleClass="form-horizontal col-lg-6">
+		<h:message styleClass="text text-danger" for="authError" id="authError"/>
+		<br/>
+		Username/Email:
+		<small><h:message styleClass="text text-danger" for="email" id="email_message"/></small>
+		<h:inputText id="email"
+					 styleClass="form-control"
+					 required="true"
+					 value="#{loginBean.email}"
+					 requiredMessage="... required." >
+		</h:inputText>
+		<br />
+		
+		Password:
+		<small><h:message for="passwd" id="passwd_message" styleClass="text text-danger"/></small>
+		<h:inputSecret id="passwd"
+					 styleClass="form-control"
+					 value="#{loginBean.passwd}" 
+					 required="true" 
+					 requiredMessage="... required" >
+		</h:inputSecret>
+		
+		<hr/>
+		
+		<h:commandButton title="" 
+						 value="Submit"
+						 styleClass="btn btn-info"
+						 id="submit_comment_button" 
+						 type="submit" 
+						 action="#{loginBean.auth()}"/>
+		&#160;
+		<h:commandButton title="" 
+						 styleClass="btn btn-default"
+						 value="Reset" 
+						 id="reset_form_button" type="reset"/>
+		</h:form>
+
+    </ui:define>
+</ui:composition>

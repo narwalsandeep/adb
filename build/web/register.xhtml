@@ -1,0 +1,66 @@
+<ui:composition template="/WEB-INF/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+		<p><h4>Register</h4></p>
+		<h:form styleClass="form-horizontal col-lg-6">
+		
+		<div class="alert alert-warning">
+		Email:
+		<h:message for="email" id="email_message"/>
+		<h:inputText id="email"
+					 styleClass="form-control"
+					 value="#{registerBean.email}" 
+					 required="true" 
+					 requiredMessage="Email is required." >
+		</h:inputText>
+		Password:<h:message for="passwd" id="passwd_message"/>
+		<h:inputSecret id="passwd"
+					 styleClass="form-control"
+					 value="#{registerBean.passwd}" 
+					 required="true" 
+					 requiredMessage="Password is required" >
+		</h:inputSecret>
+		
+		</div>
+		<br />
+		
+		Your Full Name:
+		<h:message for="name" id="name_message"/>
+		<h:inputText id="name"
+					 styleClass="form-control"
+					 value="#{registerBean.name}" 
+					 required="true" 
+					 requiredMessage="Name is required." >
+		</h:inputText>
+		<br />
+		
+		Your Currency:
+		<h:message for="currency" id="currency_message"/>
+		<h:inputText id="currency"
+					 styleClass="form-control"
+					 value="#{registerBean.currency}" 
+					 required="true" 
+					 requiredMessage="Currency is required." >
+		</h:inputText>
+		<br />
+		<hr/>
+		
+		<h:commandButton title="" 
+						 value="Register"
+						 styleClass="btn btn-primary"
+						 id="submit_comment_button" 
+						 type="submit" 
+						 action="#{registerBean.register}"/>
+		&#160;
+		<h:commandButton title="" 
+						 styleClass="btn btn-default"
+						 value="Reset" 
+						 id="reset_form_button" type="reset"/>
+	</h:form>
+
+    </ui:define>
+</ui:composition>

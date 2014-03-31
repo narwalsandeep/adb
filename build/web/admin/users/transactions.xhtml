@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+
+		<p>
+			<h5>
+				User Transactions Users
+			</h5>
+		</p>
+		
+		<h:dataTable value="#{transactionBean.findAllTransactionsByUser}" var="transaction"
+					  styleClass="">
+			 <h:column>
+				 <f:facet name="header">Sent To</f:facet>
+					 #{transaction.senderId}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Amount</f:facet>
+					 #{transaction.amount}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Dated</f:facet>
+					 #{transaction.dated}
+			 </h:column>
+		 </h:dataTable>
+
+
+
+    </ui:define>
+</ui:composition>
