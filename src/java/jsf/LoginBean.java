@@ -73,7 +73,7 @@ public class LoginBean implements Serializable {
     }
 
 	/**
-	 *
+	 * 
 	 */
 	public void logout() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -81,13 +81,15 @@ public class LoginBean implements Serializable {
         try {
             //this method will disassociate the principal from the session (effectively logging him/her out)
             request.logout();
-            //context.addMessage(null, new FacesMessage("User is logged out"));
+			//return "/index.xhtml";
+            context.addMessage(null, new FacesMessage("User is logged out"));
         } catch (ServletException e) {
-            //context.addMessage(null, new FacesMessage("Logout failed."));
+			//return "/error.xhtml";
+            context.addMessage(null, new FacesMessage("Logout failed."));
         }
     }
 
-	private void FacesMessage(String authentication_Failed_Consider_Registrati) {
+	private void FacesMessage(String authentication_Failed_Consider_Registration) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 

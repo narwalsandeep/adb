@@ -45,7 +45,7 @@ public class RegisterService {
 		
 		String newPwd = _hash(passwd);
 		user = new DbUser(email, newPwd, name, currency, initialAmount);
-		String utype = "user";
+		String utype = "users";
 		group = new DbGroup(email, utype);
 		
 		em.persist(user);

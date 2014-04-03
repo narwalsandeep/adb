@@ -16,10 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author sandeepnarwal
- */
 @Entity
 @NamedQueries({
     @NamedQuery(name="findAll",
@@ -30,7 +26,7 @@ import javax.validation.constraints.NotNull;
 public class DbUser implements Serializable{
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String name;
