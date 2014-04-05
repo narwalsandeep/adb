@@ -20,7 +20,7 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class RegisterBean implements Serializable  {
+public class RegisterBean {
 
     @EJB
     RegisterService register;

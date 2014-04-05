@@ -20,22 +20,56 @@ import javax.inject.Named;
 */
 @Named
 @RequestScoped
-public class UserBean  implements Serializable  {
+public class UserBean {
 
 	@EJB
-    private UserService user;
+    private UserService userService;
     
     private String email;
     private String name;
 	private String amount;
-
+	
 	/**
 	 *
 	 * @return
 	 */
 	public List<DbUser> findAll(){
-		return user.findAll();
+		return userService.findAll();
 	}
 
+	public DbUser findOneById(Long id){
+		return userService.findOneById(id);
+	}
 
+	public UserService getUser() {
+		return userService;
+	}
+
+	public void setUser(UserService user) {
+		this.userService = user;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
 }

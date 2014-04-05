@@ -49,6 +49,18 @@ public class UserService{
 		}
 	
 	}
+	
+	public synchronized DbUser findOneById(Long id){
+		
+		try{
+			TypedQuery<DbUser> query = em.createNamedQuery("findOneById",DbUser.class);
+			DbUser user = query.setParameter("id", id).getSingleResult();
+			return user;
+		} catch(NoResultException e) {
+			return null;
+		}
+		
+	}
 
 	
 }

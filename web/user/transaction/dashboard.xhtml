@@ -1,4 +1,4 @@
-<ui:composition template="/master/admin-layout.xhtml"
+<ui:composition template="/master/user-layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -6,11 +6,11 @@
 
     <ui:define name="content">
 		
-		<div class="alert alert-info"> Total Amount in your account is : <strong>300</strong> </div>
+		<div class="alert alert-info"> Total Amount in your account is : <strong>GBP 300</strong> </div>
 		<hr/>
 		<p>
 			<h4>
-				Sent Transactions
+				Sent Money
 			</h4>
 		</p>
 		
@@ -18,8 +18,12 @@
 		<h:dataTable value="#{transactionBean.findAllSentTransactionsByUser()}" var="tx"
 					  styleClass="table table-bordered table-condensed table-hover table-responsive">
 			 <h:column>
-				 <f:facet name="header">Send To</f:facet>
-					 #{tx.receiverId}
+				 <f:facet name="header">Receiver Name </f:facet>
+					 #{userBean.findOneById(tx.receiverId).getName()}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Receiver Email </f:facet>
+					 #{userBean.findOneById(tx.receiverId).getEmail()}
 			 </h:column>
 			 <h:column>
 				 <f:facet name="header">Amount</f:facet>
@@ -32,7 +36,7 @@
 		<hr/>
 		<p>
 			<h4>
-				Received Transactions
+				Received Money
 			</h4>
 		</p>
 		
@@ -40,8 +44,12 @@
 		<h:dataTable value="#{transactionBean.findAllRequestTransactionsByUser()}" var="tx"
 					  styleClass="table table-bordered table-condensed table-hover table-responsive">
 			 <h:column>
-				 <f:facet name="header">Received From</f:facet>
-					 #{tx.senderId}
+				 <f:facet name="header">Sender Name </f:facet>
+					 #{userBean.findOneById(tx.senderId).getName()}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">sender Email </f:facet>
+					 #{userBean.findOneById(tx.senderId).getEmail()}
 			 </h:column>
 			 <h:column>
 				 <f:facet name="header">Amount</f:facet>

@@ -16,16 +16,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author sandeepnarwal
- */
 @Entity
 @NamedQueries({
     @NamedQuery(name="findAll",
                 query="SELECT user FROM DbUser user"),
     @NamedQuery(name="findOneByEmail",
                 query="SELECT user FROM DbUser user WHERE user.email = :email"),
+    @NamedQuery(name="findOneById",
+                query="SELECT user FROM DbUser user WHERE user.id = :id"),
 }) 
 public class DbUser implements Serializable{
 

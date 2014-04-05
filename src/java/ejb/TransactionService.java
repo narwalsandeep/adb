@@ -71,14 +71,9 @@ public class TransactionService {
 
 	}
 
-	/**
-	 *
-	 * @param userId
-	 * @return
-	 */
-	public List<DbTransaction> findAllSentTransactionsByUser(Long userId) {
+	public List<DbTransaction> findAllSentByUserId(Long userId) {
 		try{
-			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllSentBySenderId",DbTransaction.class);
+			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllSentByUserId",DbTransaction.class);
 			List<DbTransaction> tx = query.setParameter("senderId", userId).getResultList();
 			return tx;
 		} catch(NoResultException e) {
@@ -86,21 +81,15 @@ public class TransactionService {
 		}
 	}
 
-	/**
-	 *
-	 * @param userId
-	 * @return
-	 */
-	public List<DbTransaction> findAllRequestTransactionsByUser(Long userId) {
+	public List<DbTransaction> findAllRequestByUserId(Long userId) {
 		try{
-			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllRequestByReceiverId",DbTransaction.class);
+			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllRequestByUserId",DbTransaction.class);
 			List<DbTransaction> tx = query.setParameter("receiverId", userId).getResultList();
 			return tx;
 		} catch(NoResultException e) {
 			return null;
 		}
 	}
-
 
 
 }

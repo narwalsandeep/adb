@@ -16,22 +16,18 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author sandeepnarwal
- */
 @Entity
 @NamedQueries({
-    @NamedQuery(name="findAllSendBySenderId",
+    @NamedQuery(name="findAllSentByUserId",
                 query="SELECT tx FROM DbTransaction tx WHERE tx.senderId=:senderId"),
-    @NamedQuery(name="findAllRequestByReceiverId",
+    @NamedQuery(name="findAllRequestByUserId",
                 query="SELECT tx FROM DbTransaction tx WHERE tx.receiverId = :receiverId"),
 }) 
 
 public class DbTransaction implements Serializable {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @NotNull
