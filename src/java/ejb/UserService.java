@@ -24,6 +24,10 @@ public class UserService{
 	@PersistenceContext
     EntityManager em;
 
+	/**
+	 *
+	 * @return
+	 */
 	public synchronized List<DbUser> findAll() {
         List<DbUser> user = em.createNamedQuery("findAll").getResultList();
         return user;

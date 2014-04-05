@@ -8,10 +8,11 @@
 		<p><h4>Send Money</h4></p>
 		<h:form id="txSendForm" styleClass="form-horizontal col-lg-6">
 		<h:message styleClass="text text-danger" for="sendError" id="sendError"/>
+		<h:message styleClass="text text-success" for="sendSuccess" id="sendSuccess"/>
 		<br/>
 
 		Email Of Receiver:
-		<small><h:message for="receiverEmail" class="text text-danger" id="email_message"/></small>
+		<small><h:message for="receiverEmail" class="text text-danger" id="receiverEmail_message"/></small>
 		<h:inputText id="receiverEmail"
 					 styleClass="form-control"
 					 value="#{transactionBean.receiverEmail}" 
@@ -21,8 +22,8 @@
 		
 		<br />
 		
-		Amount To Send in in GBP
-		<small><h:message for="amount" class="text text-danger" id="name_message"/></small>
+		Amount To Send In GBP:
+		<small><h:message for="amount" class="text text-danger" id="amount_message"/></small>
 		<h:inputText id="amount"
 					 styleClass="form-control"
 					 value="#{transactionBean.amount}" 

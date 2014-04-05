@@ -8,6 +8,7 @@ package jsf;
 
 import ejb.UserService;
 import entity.DbUser;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -19,7 +20,7 @@ import javax.inject.Named;
 */
 @Named
 @RequestScoped
-public class UserBean {
+public class UserBean  implements Serializable  {
 
 	@EJB
     private UserService user;
@@ -28,6 +29,10 @@ public class UserBean {
     private String name;
 	private String amount;
 
+	/**
+	 *
+	 * @return
+	 */
 	public List<DbUser> findAll(){
 		return user.findAll();
 	}

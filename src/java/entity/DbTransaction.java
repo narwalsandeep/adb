@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,6 +21,13 @@ import javax.validation.constraints.NotNull;
  * @author sandeepnarwal
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="findAllSendBySenderId",
+                query="SELECT tx FROM DbTransaction tx WHERE tx.senderId=:senderId"),
+    @NamedQuery(name="findAllRequestByReceiverId",
+                query="SELECT tx FROM DbTransaction tx WHERE tx.receiverId = :receiverId"),
+}) 
+
 public class DbTransaction implements Serializable {
 	
 	@Id
@@ -36,6 +45,9 @@ public class DbTransaction implements Serializable {
     @NotNull
 	private String status;
 
+	/**
+	 *
+	 */
 	public DbTransaction() {
 	}
 

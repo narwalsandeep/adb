@@ -6,37 +6,39 @@
 
     <ui:define name="content">
 		<p><h4>Request Money</h4></p>
-		<h:form styleClass="form-horizontal col-lg-6">
-		
-		Email:
-		<h:message for="email" id="email_message"/>
-		<h:inputText id="email"
+		<h:form id="txRequestForm" styleClass="form-horizontal col-lg-6">
+		<h:message styleClass="text text-danger" for="requestError" id="requestError"/>
+		<h:message styleClass="text text-success" for="requestSuccess" id="requestSuccess"/>
+		<br/>
+
+		Email From Whom You Want To Request Money:
+		<small><h:message for="senderEmail" class="text text-danger" id="email_message"/></small>
+		<h:inputText id="senderEmail"
 					 styleClass="form-control"
-					 value="#{transactionBean.senderEmail}" 
+					 value="#{TransactionBean.senderEmail}" 
 					 required="true" 
-					 requiredMessage="Sender is required." >
+					 requiredMessage="... required." >
 		</h:inputText>
 		
 		<br />
 		
-		Your Full Name:
-		<h:message for="name" id="name_message"/>
-		<h:inputText id="name"
+		Amount To Request In GBP:
+		<small><h:message for="amount" class="text text-danger" id="name_message"/></small>
+		<h:inputText id="amount"
 					 styleClass="form-control"
-					 value="#{transactionBean.amount}" 
+					 value="#{TransactionBean.amount}" 
 					 required="true" 
-					 requiredMessage="Name is required." >
+					 requiredMessage="... required." >
 		</h:inputText>
 		<br />
-		
 		<hr/>
 		
 		<h:commandButton title="" 
-						 value="Register"
+						 value="Send"
 						 styleClass="btn btn-primary"
 						 id="submit_comment_button" 
 						 type="submit" 
-						 action="#{transactionBean.doTransaction()}"/>
+						 action="#{TransactionBean.doRequest()}"/>
 		&#160;
 		<h:commandButton title="" 
 						 styleClass="btn btn-default"

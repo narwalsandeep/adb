@@ -10,7 +10,9 @@
 			<h5>
 				<div class='alert alert-danger'>Redirected to error page...</div>
 				<hr/>
-				<h:link styleClass="btn btn-default btn-sm" value="Login" outcome="login" />
+				<h:form  >
+					<h:commandLink   styleClass="btn btn-default btn-sm" value="Try Logout" action="#{loginBean.logout()}"/>
+				</h:form>
 				
 			</h5>
 		</p>

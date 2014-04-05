@@ -19,6 +19,10 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *
+ * @author sandeepnarwal
+ */
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
@@ -108,6 +112,10 @@ public class LoginBean implements Serializable {
         }
     }
 
+	/**
+	 *
+	 * @return
+	 */
 	public boolean isLoggedIn(){
 		if(this.dbUser == null) {
 			return false;
@@ -116,6 +124,10 @@ public class LoginBean implements Serializable {
 		}
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public DbUser getLoggedInUser(){
 		return this.dbUser;
 	}

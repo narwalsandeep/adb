@@ -13,6 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author sandeepnarwal
+ */
 @Entity
 public class DbGroup implements Serializable{
 
@@ -75,6 +79,10 @@ public class DbGroup implements Serializable{
 		this.email = email;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getUtype() {
 		return utype;
 	}

@@ -16,21 +16,37 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class Utils {
 	
+	/**
+	 *
+	 */
 	public Utils(){
 		
 	}
 	
+	/**
+	 *
+	 * @param to
+	 * @param msg
+	 */
 	public void addContextMessage(String to,String msg){
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(to, new FacesMessage(msg));
         
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public FacesContext getContext(){
 		return FacesContext.getCurrentInstance();
         
 	}
 	
+	/**
+	 *
+	 * @return
+	 */
 	public Object getRequest(){
 		
 		return this.getContext().getExternalContext().getRequest();

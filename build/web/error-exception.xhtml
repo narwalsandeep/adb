@@ -10,8 +10,10 @@
 			<h5>
 				<div class='alert alert-danger'>Error from exception...</div>
 				<hr/>
-				<h:link styleClass="btn btn-default btn-sm" value="Try Login Again" outcome="login" />
-				
+				<h:form  >
+					<h:commandLink   styleClass="btn btn-default btn-sm" value="Try Logout" action="#{loginBean.logout()}"/>
+				</h:form>
+
 			</h5>
 		</p>
 

@@ -32,6 +32,11 @@
 	<navigation-rule>
         <from-view-id>/user/*</from-view-id>
         <navigation-case>
+            <from-outcome>dashboard</from-outcome>
+            <to-view-id>/user/transaction/dashboard.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>send</from-outcome>
             <to-view-id>/user/transaction/send.xhtml</to-view-id>
             <redirect></redirect>

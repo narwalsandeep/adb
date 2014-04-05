@@ -6,13 +6,13 @@
 
 package ejb;
 
-import entity.DbGroup;
 import entity.DbTransaction;
-import entity.DbUser;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,10 +26,25 @@ public class TransactionService {
 
 	UserService user;
 	
+	/**
+	 *
+	 */
 	public final String STATUS_SUCCESS = "SUCCESS";
-	public final String STATUS_WAITING_APPROVAL = "WAITING APPROVAL";
+
+	/**
+	 *
+	 */
+	public final String STATUS_REQUEST_AWAITING_APPROVAL = "REQUEST AWAITING APPROVAL";
+
+	/**
+	 *
+	 */
 	public final String STATUS_REQUEST_REJECTED = "REQUEST REJECTED";
 	
+	/**
+	 *
+	 * @return
+	 */
 	public synchronized List<DbTransaction> findAll() {
         List<DbTransaction> tx = em.createNamedQuery("findAllByUser").getResultList();
         return tx;
@@ -49,11 +64,41 @@ public class TransactionService {
 		if("SEND".equals(txType)) {
 			tx = new DbTransaction(senderId, receiverId, amount, STATUS_SUCCESS);
 		} else {
-			tx = new DbTransaction(senderId, receiverId, amount, STATUS_SUCCESS);
+			tx = new DbTransaction(senderId, receiverId, amount, STATUS_REQUEST_AWAITING_APPROVAL);
 		}
 			
 		em.persist(tx);
 
+	}
+
+	/**
+	 *
+	 * @param userId
+	 * @return
+	 */
+	public List<DbTransaction> findAllSentTransactionsByUser(Long userId) {
+		try{
+			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllSentBySenderId",DbTransaction.class);
+			List<DbTransaction> tx = query.setParameter("senderId", userId).getResultList();
+			return tx;
+		} catch(NoResultException e) {
+			return null;
+		}
+	}
+
+	/**
+	 *
+	 * @param userId
+	 * @return
+	 */
+	public List<DbTransaction> findAllRequestTransactionsByUser(Long userId) {
+		try{
+			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllRequestByReceiverId",DbTransaction.class);
+			List<DbTransaction> tx = query.setParameter("receiverId", userId).getResultList();
+			return tx;
+		} catch(NoResultException e) {
+			return null;
+		}
 	}
 
 

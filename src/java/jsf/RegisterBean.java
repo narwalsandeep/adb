@@ -7,15 +7,20 @@
 package jsf;
 
 import ejb.RegisterService;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+/**
+ *
+ * @author sandeepnarwal
+ */
 @Named
 @RequestScoped
-public class RegisterBean {
+public class RegisterBean implements Serializable  {
 
     @EJB
     RegisterService register;

@@ -1,0 +1,56 @@
+<ui:composition template="/master/admin-layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+		
+		<div class="alert alert-info"> Total Amount in your account is : <strong>300</strong> </div>
+		<hr/>
+		<p>
+			<h4>
+				Sent Transactions
+			</h4>
+		</p>
+		
+		<div class="panel panel-default">
+		<h:dataTable value="#{transactionBean.findAllSentTransactionsByUser()}" var="tx"
+					  styleClass="table table-bordered table-condensed table-hover table-responsive">
+			 <h:column>
+				 <f:facet name="header">Send To</f:facet>
+					 #{tx.receiverId}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Amount</f:facet>
+					 #{tx.amount}
+			 </h:column>
+			
+		 </h:dataTable>
+		 </div>
+
+		<hr/>
+		<p>
+			<h4>
+				Received Transactions
+			</h4>
+		</p>
+		
+		<div class="panel panel-default">
+		<h:dataTable value="#{transactionBean.findAllRequestTransactionsByUser()}" var="tx"
+					  styleClass="table table-bordered table-condensed table-hover table-responsive">
+			 <h:column>
+				 <f:facet name="header">Received From</f:facet>
+					 #{tx.senderId}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Amount</f:facet>
+					 #{tx.amount}
+			 </h:column>
+			
+		 </h:dataTable>
+		 </div>
+
+
+    </ui:define>
+</ui:composition>

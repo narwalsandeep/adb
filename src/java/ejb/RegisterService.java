@@ -16,6 +16,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/**
+ *
+ * @author sandeepnarwal
+ */
 @Stateless
 public class RegisterService {
 	
@@ -52,6 +56,13 @@ public class RegisterService {
 		em.persist(group);
     }
 	
+	/**
+	 *
+	 * @param str
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
 	public String _hash(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 
 		// hash a str

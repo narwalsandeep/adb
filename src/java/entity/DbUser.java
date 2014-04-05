@@ -16,6 +16,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author sandeepnarwal
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name="findAll",
