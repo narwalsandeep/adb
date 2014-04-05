@@ -1,4 +1,4 @@
-<ui:composition template="/master/user-layout.xhtml"
+<ui:composition template="/master/layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -8,9 +8,13 @@
 
 		<p>
 			<h5>
-				Welcome #{loginBean.getEmail()}. Use top menu to perform transactions.
+				<div class='alert alert-danger'>Error from exception...</div>
+				<hr/>
+				<h:link styleClass="btn btn-default btn-sm" value="Try Login Again" outcome="login" />
+				
 			</h5>
 		</p>
+
 
     </ui:define>
 </ui:composition>

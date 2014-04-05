@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/layout.xhtml"
+<ui:composition template="/master/layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -16,6 +16,8 @@
 					 value="#{registerBean.email}" 
 					 required="true" 
 					 requiredMessage="Email is required." >
+					<f:validateLength minimum="5"/>
+
 		</h:inputText>
 		Password:<h:message for="passwd" id="passwd_message"/>
 		<h:inputSecret id="passwd"
@@ -23,6 +25,7 @@
 					 value="#{registerBean.passwd}" 
 					 required="true" 
 					 requiredMessage="Password is required" >
+					<f:validateLength minimum="1"/>
 		</h:inputSecret>
 		
 		</div>

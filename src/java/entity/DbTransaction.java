@@ -39,9 +39,16 @@ public class DbTransaction implements Serializable {
 	public DbTransaction() {
 	}
 
-	public DbTransaction(Long sender, Long receiver, Double amount, String STATUS_SUCCESS) {
-		this.senderId = sender;
-		this.receiverId = receiver;
+	/**
+	 *
+	 * @param senderId
+	 * @param receiverId
+	 * @param amount
+	 * @param STATUS_SUCCESS
+	 */
+	public DbTransaction(Long senderId, Long receiverId, Double amount, String STATUS_SUCCESS) {
+		this.senderId = senderId;
+		this.receiverId = receiverId;
 		this.amount = amount;
 		this.status = STATUS_SUCCESS;
 	}

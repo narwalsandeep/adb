@@ -1,28 +1,26 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package jsf;
 
 import ejb.UserService;
 import entity.DbUser;
-import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
- *
- * @author "as2d3f"
- */
+*
+* @author "as2d3f"
+*/
 @Named
-@SessionScoped
-public class UserBean  implements Serializable {
-	
+@RequestScoped
+public class UserBean {
+
 	@EJB
     private UserService user;
     
@@ -33,38 +31,6 @@ public class UserBean  implements Serializable {
 	public List<DbUser> findAll(){
 		return user.findAll();
 	}
-		
-	public UserService getUser() {
-		return user;
-	}
 
-	public void setUser(UserService user) {
-		this.user = user;
-	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAmount() {
-		return amount;
-	}
-
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
-
-	
 }

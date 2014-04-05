@@ -37,20 +37,25 @@ public class TransactionService {
 
 	/**
 	 *
-	 * @param email
+	 * @param senderId
+	 * @param receiverId
+	 * @param txType
 	 * @param amount
 	 */
-	public void doSend(String email, Double amount) {
+	public void doTransaction(Long senderId, Long receiverId,  Double amount, String txType) {
 
 		DbTransaction tx;
 		
-		DbUser check = user.findOneByEmail(email);
-		
-		tx = new DbTransaction(check.getId(), check.getId(), amount, STATUS_SUCCESS);
-		
+		if("SEND".equals(txType)) {
+			tx = new DbTransaction(senderId, receiverId, amount, STATUS_SUCCESS);
+		} else {
+			tx = new DbTransaction(senderId, receiverId, amount, STATUS_SUCCESS);
+		}
+			
 		em.persist(tx);
 
 	}
+
 
 
 }

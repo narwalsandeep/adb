@@ -7,19 +7,61 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
 
+	<!-- =========== not logged rules ================================== -->
+
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>/error.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>user</from-outcome>
-            <to-view-id>/user/home.xhtml</to-view-id>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
             <redirect></redirect>
         </navigation-case>
     </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/user/home.xhtml</from-view-id>
+
+	<navigation-rule>
+        <from-view-id>/error-exception.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>index</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect></redirect>
         </navigation-case>
     </navigation-rule>
+    
+	<!-- =========== user rules  ================================== -->
+
+	<navigation-rule>
+        <from-view-id>/user/*</from-view-id>
+        <navigation-case>
+            <from-outcome>send</from-outcome>
+            <to-view-id>/user/transaction/send.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>request</from-outcome>
+            <to-view-id>/user/transaction/request.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>alert</from-outcome>
+            <to-view-id>/user/transaction/alert.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+	
+	<!-- =========== admin rules  ================================== -->
+
+	<navigation-rule>
+        <from-view-id>/admin/*</from-view-id>
+        <navigation-case>
+            <from-outcome>users</from-outcome>
+            <to-view-id>/admin/users/list.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>transaction</from-outcome>
+            <to-view-id>/admin/users/transactions.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

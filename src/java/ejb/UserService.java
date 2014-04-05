@@ -7,11 +7,10 @@
 package ejb;
 
 import entity.DbUser;
-import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -37,10 +36,15 @@ public class UserService{
 	 */
 	public synchronized DbUser findOneByEmail(String email) {
 		
-		TypedQuery<DbUser> query = em.createNamedQuery("findOneByEmail",DbUser.class);
-        DbUser user = query.setParameter("email", email).getSingleResult();
-		
-		return user;
+		try{
+			TypedQuery<DbUser> query = em.createNamedQuery("findOneByEmail",DbUser.class);
+			DbUser user = query.setParameter("email", email).getSingleResult();
+			return user;
+		} catch(NoResultException e) {
+			return null;
+		}
+	
 	}
+
 	
 }

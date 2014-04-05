@@ -6,21 +6,30 @@
 
 package jsf;
 
+import ejb.UserService;
+import entity.DbUser;
+import java.io.IOException;
 import java.io.Serializable;
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class LoginBean implements Serializable {
 
     private String email;
     private String passwd;
-
+	
+	DbUser dbUser;
+	
+	@EJB
+	UserService userService;
 	/**
 	 *
 	 * @return
@@ -63,32 +72,54 @@ public class LoginBean implements Serializable {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         System.out.println("Username: " + this.email);
         System.out.println("Password: " + this.passwd);
-        try {	
+        
+		try {	
 			request.login(this.email, this.passwd);
-			return "/user/home.xhtml";
+			this.dbUser = userService.findOneByEmail(this.email);
+			
+			return "/user/home";
+		
 		} catch (ServletException e) {
-            context.addMessage("loginForm:authError", new FacesMessage("Authentication Failed. Consider Registration."));
-			return "/login.xhtml";
+			context.addMessage("loginForm:authError", 
+					new FacesMessage("Authentication Failed. Consider Registration. "+e.getMessage()
+            ));
+			return "/error";
         }
     }
 
 	/**
 	 * 
+	 * @throws java.io.IOException 
 	 */
-	public void logout() {
+	public void logout() throws IOException {
+		this.dbUser = null;
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
-            //this method will disassociate the principal from the session (effectively logging him/her out)
             request.logout();
-			//return "/index.xhtml";
-            context.addMessage(null, new FacesMessage("User is logged out"));
+			ExternalContext xContext = context.getExternalContext();
+			xContext.invalidateSession();
+			xContext.redirect(xContext.getRequestContextPath() + "/faces/login.xhtml");
+			//return "/login";
+            //context.addMessage(null, new FacesMessage("User is logged out"));
         } catch (ServletException e) {
-			//return "/error.xhtml";
-            context.addMessage(null, new FacesMessage("Logout failed."));
+			//return "/error-exception";
+			//context.addMessage(null, new FacesMessage("Logout failed."));
         }
     }
 
+	public boolean isLoggedIn(){
+		if(this.dbUser == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public DbUser getLoggedInUser(){
+		return this.dbUser;
+	}
+	
 	private void FacesMessage(String authentication_Failed_Consider_Registration) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}

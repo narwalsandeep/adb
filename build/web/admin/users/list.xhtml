@@ -1,11 +1,10 @@
-<ui:composition template="/WEB-INF/layout.xhtml"
+<ui:composition template="/master/admin-layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="content">
-
 		<p>
 			<h4>
 				Registered Users
@@ -27,6 +26,11 @@
 				 <f:facet name="header">Amount</f:facet>
 					 #{user.amount}
 			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Transactions</f:facet>
+				 <h:link outcome="/admin/users/transactions/id/#{user.amount}" value="View"></h:link> 
+			 </h:column>
+			
 		 </h:dataTable>
 		 </div>
 

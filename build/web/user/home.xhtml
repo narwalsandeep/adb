@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/layout.xhtml"
+<ui:composition template="/master/user-layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -8,19 +8,9 @@
 
 		<p>
 			<h5>
-				user home.xhtml
-				<h:form  id="loginForm" styleClass="form-horizontal col-lg-6">
-
-				<h:commandButton title="" 
-				 value="Logout"
-				 styleClass="btn btn-info"
-				 id="submit_comment_button" 
-				 type="submit" 
-				 action="#{loginBean.logout()}"/>
-				</h:form>
+				Welcome #{loginBean.getEmail()}. Use top menu to perform transactions.
 			</h5>
 		</p>
-
 
     </ui:define>
 </ui:composition>
