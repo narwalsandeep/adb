@@ -6,7 +6,7 @@
 
     <ui:define name="content">
 		
-		<div class="alert alert-info"> Total Amount in your account is : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)}</strong> </div>
+		<div class="alert alert-info"> Total Amount in your account is : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)} #{loginBean.loggedInUser.currency}</strong> </div>
 		<hr/>
 		<p>
 			<h4>
@@ -28,8 +28,12 @@
 					 #{userBean.findOneById(tx.receiverId).getEmail()}
 			 </h:column>
 			 <h:column>
-				 <f:facet name="header">Amount</f:facet>
+				 <f:facet name="header">Amount  #{loginBean.loggedInUser.currency}</f:facet>
 					 #{tx.amount}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Dated</f:facet>
+					 #{tx.dated}
 			 </h:column>
 			
 		 </h:dataTable>
@@ -55,13 +59,17 @@
 					 #{userBean.findOneById(tx.senderId).getEmail()}
 			 </h:column>
 			 <h:column>
-				 <f:facet name="header">Amount</f:facet>
+				 <f:facet name="header">Amount  #{loginBean.loggedInUser.currency}</f:facet>
 					 #{tx.amount}
 			 </h:column>
 			
 			 <h:column>
 				 <f:facet name="header">status</f:facet>
 					 #{tx.status}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Dated</f:facet>
+					 #{tx.dated}
 			 </h:column>
 			
 		 </h:dataTable>

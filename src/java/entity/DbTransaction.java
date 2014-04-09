@@ -191,4 +191,12 @@ public class DbTransaction implements Serializable {
 		this.status = status;
 	}
 
+	public String getDated() {
+		return dated;
+	}
+
+	public void setDated(String dated) {
+		this.dated = dated;
+	}
+
 }
