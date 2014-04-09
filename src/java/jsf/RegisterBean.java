@@ -42,7 +42,8 @@ public class RegisterBean {
 	 * @throws UnsupportedEncodingException
 	 */
 	public String register() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        register.doRegister(email, passwd, name, currency);
+		
+		register.doRegister(email, passwd, name, currency);
         return "success";
     }
 
@@ -125,5 +126,5 @@ public class RegisterBean {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
-    
+
 }

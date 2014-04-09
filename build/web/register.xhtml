@@ -10,44 +10,47 @@
 		
 		<div class="alert alert-warning">
 		Email:
-		<h:message for="email" id="email_message"/>
+		<small><h:message for="email" styleClass="text text-danger" id="email_message"/></small>
 		<h:inputText id="email"
 					 styleClass="form-control"
 					 value="#{registerBean.email}" 
 					 required="true" 
-					 requiredMessage="Email is required." >
-					<f:validateLength minimum="5"/>
+					 requiredMessage="... required."
+					 validatorMessage="... minimum length is 5" >
+			<f:validateLength minimum="5" />
 
 		</h:inputText>
-		Password:<h:message for="passwd" id="passwd_message"/>
+		Password:
+		<small><h:message for="passwd" styleClass="text text-danger" id="passwd_message"/></small>
 		<h:inputSecret id="passwd"
 					 styleClass="form-control"
 					 value="#{registerBean.passwd}" 
 					 required="true" 
-					 requiredMessage="Password is required" >
-					<f:validateLength minimum="1"/>
+					 requiredMessage="... required"
+					 validatorMessage="... minimum length is 4" >
+					<f:validateLength minimum="4"/>
 		</h:inputSecret>
 		
 		</div>
 		<br />
 		
 		Your Full Name:
-		<h:message for="name" id="name_message"/>
+		<small><h:message for="name" styleClass="text text-danger" id="name_message"/></small>
 		<h:inputText id="name"
 					 styleClass="form-control"
 					 value="#{registerBean.name}" 
 					 required="true" 
-					 requiredMessage="Name is required." >
+					 requiredMessage="... required." >
 		</h:inputText>
 		<br />
 		
 		Your Currency:
-		<h:message for="currency" id="currency_message"/>
+		<small><h:message for="currency"  styleClass="text text-danger" id="currency_message"/></small>
 		<h:inputText id="currency"
 					 styleClass="form-control"
 					 value="#{registerBean.currency}" 
 					 required="true" 
-					 requiredMessage="Currency is required." >
+					 requiredMessage="... required." >
 		</h:inputText>
 		<br />
 		<hr/>
@@ -57,7 +60,7 @@
 						 styleClass="btn btn-primary"
 						 id="submit_comment_button" 
 						 type="submit" 
-						 action="#{registerBean.register}"/>
+						 action="#{registerBean.register()}"/>
 		&#160;
 		<h:commandButton title="" 
 						 styleClass="btn btn-default"
