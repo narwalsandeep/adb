@@ -12,6 +12,7 @@ import entity.DbTransaction;
 import entity.DbUser;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -103,7 +104,22 @@ public class TransactionBean implements Serializable {
 
 	}
 
+	public List<DbTransaction> findAllPendingRequestsByUser(){
+	
+		Long userId = loginBean.getLoggedInUser().getId();
+		return tx.findAllPendingRequestByUserId(userId);
+	
+	}
+	
+	public Double getCurrentAmount(Long id){
+		return getUserService().findOneById(id).getAmount();
+	}
 
+	public void approvePayment(Long id){
+		
+		tx.approvePayment(id);
+	}
+	
 	private void FacesMessage(String authentication_Failed_Consider_Registration) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}

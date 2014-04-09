@@ -15,7 +15,7 @@
 		<small><h:message for="senderEmail" class="text text-danger" id="email_message"/></small>
 		<h:inputText id="senderEmail"
 					 styleClass="form-control"
-					 value="#{TransactionBean.senderEmail}" 
+					 value="#{transactionBean.senderEmail}" 
 					 required="true" 
 					 requiredMessage="... required." >
 		</h:inputText>
@@ -26,7 +26,7 @@
 		<small><h:message for="amount" class="text text-danger" id="name_message"/></small>
 		<h:inputText id="amount"
 					 styleClass="form-control"
-					 value="#{TransactionBean.amount}" 
+					 value="#{transactionBean.amount}" 
 					 required="true" 
 					 requiredMessage="... required." >
 		</h:inputText>
@@ -38,7 +38,7 @@
 						 styleClass="btn btn-primary"
 						 id="submit_comment_button" 
 						 type="submit" 
-						 action="#{TransactionBean.doRequest()}"/>
+						 action="#{transactionBean.doRequest()}"/>
 		&#160;
 		<h:commandButton title="" 
 						 styleClass="btn btn-default"

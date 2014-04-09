@@ -19,10 +19,6 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- *
- * @author sandeepnarwal
- */
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {

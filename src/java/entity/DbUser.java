@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
                 query="SELECT user FROM DbUser user WHERE user.email = :email"),
     @NamedQuery(name="findOneById",
                 query="SELECT user FROM DbUser user WHERE user.id = :id"),
+    @NamedQuery(name="deductTotalAmount",
+                query="update DbUser set amount=:amount WHERE id=:id"),
 }) 
 public class DbUser implements Serializable{
 

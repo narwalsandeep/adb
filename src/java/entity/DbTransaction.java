@@ -19,9 +19,16 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name="findAllSentByUserId",
-                query="SELECT tx FROM DbTransaction tx WHERE tx.senderId=:senderId"),
+                query="SELECT tx FROM DbTransaction tx WHERE tx.status='SUCCESS' and tx.senderId=:senderId"),
     @NamedQuery(name="findAllRequestByUserId",
                 query="SELECT tx FROM DbTransaction tx WHERE tx.receiverId = :receiverId"),
+    @NamedQuery(name="findAllPendingRequestByUserId",
+                query="SELECT tx FROM DbTransaction tx WHERE tx.status='REQUEST AWAITING APPROVAL' and tx.senderId = :senderId"),    
+	@NamedQuery(name="approvePayment",
+                query="update DbTransaction set status='SUCCESS' WHERE id=:id"),
+	@NamedQuery(name="rejectPayment",
+                query="update DbTransaction set status='REJECT' WHERE id=:id"),
+
 }) 
 
 public class DbTransaction implements Serializable {

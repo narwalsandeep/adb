@@ -1,0 +1,52 @@
+<ui:composition template="/master/user-layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+		
+		<div class="alert alert-info"> Total Amount in your account is : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)}</strong> </div>
+		<hr/>
+		<p>
+			<h4>
+				 Pending Money Requests
+			</h4>
+		</p>
+		
+		<div class="panel panel-default">
+		<div class="panel-heading"><small class="text text-primary"> Money requests by other users.</small>
+</div>
+		<h:dataTable value="#{transactionBean.findAllPendingRequestsByUser()}" var="tx"
+					  styleClass="table table-bordered table-condensed table-hover table-responsive">
+			 <h:column>
+				 <f:facet name="header">Request By (Name) </f:facet>
+					 #{userBean.findOneById(tx.receiverId).getName()}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Request By (Email) </f:facet>
+					 #{userBean.findOneById(tx.receiverId).getEmail()}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Amount</f:facet>
+					 #{tx.amount}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header"></f:facet>
+				 <h:form>
+					 <h:commandLink value="Approve" styleClass="btn btn-sm btn-success" action="#{transactionBean.approvePayment(tx.id)}"/>
+				 </h:form>
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header"></f:facet>
+				 <h:form>
+					 <h:commandLink value="Reject" styleClass="btn btn-sm btn-danger" action="#{transactionBean.rejectPayment(tx.id)}"/>
+				 </h:form>
+			 </h:column>
+			
+		 </h:dataTable>
+		 </div>
+
+
+    </ui:define>
+</ui:composition>
