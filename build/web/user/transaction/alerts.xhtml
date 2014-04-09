@@ -6,7 +6,7 @@
 
     <ui:define name="content">
 		
-		<div class="alert alert-info"> Total Amount in your account is : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)}</strong> </div>
+		<div class="alert alert-info"> Total Amount in your account is : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)} #{loginBean.loggedInUser.currency}</strong> </div>
 		<hr/>
 		<p>
 			<h4>

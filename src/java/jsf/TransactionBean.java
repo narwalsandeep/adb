@@ -119,10 +119,6 @@ public class TransactionBean implements Serializable {
 		txService.approvePayment(transactionRecord);
 	}
 	
-	private void FacesMessage(String authentication_Failed_Consider_Registration) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-
 	public TransactionService getTxService() {
 		return txService;
 	}

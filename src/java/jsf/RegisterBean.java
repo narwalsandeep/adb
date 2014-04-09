@@ -8,7 +8,6 @@ package jsf;
 
 import ejb.RegisterService;
 import ejb.UserService;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
@@ -26,7 +25,7 @@ import javax.inject.Named;
 public class RegisterBean {
 
     @EJB
-    RegisterService register;
+    RegisterService registerService;
     
 	@EJB
 	UserService userService;
@@ -52,7 +51,7 @@ public class RegisterBean {
 		FacesContext context = FacesContext.getCurrentInstance();
         
 		if(validateEmail(email)){
-			register.doRegister(email, passwd, name, currency);
+			registerService.doRegister(email, passwd, name, currency);
 			return "success";
 		}
 		else{
@@ -66,16 +65,16 @@ public class RegisterBean {
 	 *
 	 * @return
 	 */
-	public RegisterService getRegister() {
-		return register;
+	public RegisterService getRegisterService() {
+		return registerService;
 	}
 
 	/**
 	 *
-	 * @param register
+	 * @param registerService
 	 */
-	public void setRegister(RegisterService register) {
-		this.register = register;
+	public void setRegisterService(RegisterService registerService) {
+		this.registerService = registerService;
 	}
 
 	/**

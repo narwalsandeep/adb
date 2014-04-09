@@ -52,7 +52,7 @@ public class RegisterService {
 		DbGroup group;
 		
 		String newPwd = _hash(passwd);
-		user = new DbUser(email, newPwd, name, currency, initialAmount,getCurrentDate());
+		user = new DbUser(email, newPwd, name, currency, initialAmount,getCurrentDate(),0);
 		String utype = "users";
 		group = new DbGroup(email, utype);
 		

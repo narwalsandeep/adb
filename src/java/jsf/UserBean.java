@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -25,10 +26,13 @@ public class UserBean {
 	@EJB
     private UserService userService;
     
+	@Inject
+	LoginBean loginBean;
+	
     private String email;
     private String name;
 	private String amount;
-	
+		
 	/**
 	 *
 	 * @return
@@ -41,13 +45,10 @@ public class UserBean {
 		return userService.findOneById(id);
 	}
 
-	public UserService getUser() {
-		return userService;
+	public Integer getAlerts(){
+		return userService.findOneById(loginBean.getLoggedInUser().getId()).getAlerts();
 	}
-
-	public void setUser(UserService user) {
-		this.userService = user;
-	}
+	
 
 	public String getEmail() {
 		return email;
@@ -72,4 +73,13 @@ public class UserBean {
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 }

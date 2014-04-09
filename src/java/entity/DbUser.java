@@ -26,6 +26,8 @@ import javax.validation.constraints.NotNull;
                 query="SELECT user FROM DbUser user WHERE user.id = :id"),
     @NamedQuery(name="updateAmount",
                 query="update DbUser set amount=:amount WHERE id=:id"),
+    @NamedQuery(name="updateAlerts",
+                query="update DbUser set alerts=:alerts WHERE id=:id"),
 }) 
 public class DbUser implements Serializable{
 
@@ -46,6 +48,9 @@ public class DbUser implements Serializable{
 	private Double amount;
 	
 	private String dated;
+	
+	private Integer alerts;
+	
 	/**
 	 *
 	 */
@@ -59,7 +64,7 @@ public class DbUser implements Serializable{
 	 * @param currency
 	 * @param amount
 	 */
-	public DbUser(String email, String passwd, String name, String currency, Double amount, String dated) {
+	public DbUser(String email, String passwd, String name, String currency, Double amount, String dated, Integer alert) {
 		
 		this.email		= email;
         this.passwd		= passwd;
@@ -67,6 +72,7 @@ public class DbUser implements Serializable{
         this.currency	= currency;
 		this.amount		= amount;
 		this.dated		= dated;
+		this.alerts		= alert;
  
 	}
 	
@@ -215,6 +221,14 @@ public class DbUser implements Serializable{
 
 	public void setDated(String dated) {
 		this.dated = dated;
+	}
+
+	public Integer getAlerts() {
+		return alerts;
+	}
+
+	public void setAlerts(Integer alerts) {
+		this.alerts = alerts;
 	}
 
 	

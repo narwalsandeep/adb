@@ -33,7 +33,7 @@
 						<h:link styleClass="" value="Dashboard" outcome="dashboard" />
 					</li>
 					<li >
-						<h:link styleClass="" value="Alerts" outcome="alerts" />
+						<h:link styleClass="" value="Request Alerts (#{loginBean.loggedInUser.alerts})" outcome="alerts" />
 					</li>
 					<li >
 						<h:link styleClass="" value="Send" outcome="send" />
@@ -46,7 +46,7 @@
 					</li>
 				</ul>
 				</h:form>
-				<h3 class="text-muted">JSF+EJB</h3>
+				<span class="text-warning">Welcome #{loginBean.loggedInUser.name}</span>
 			</div>
 			<div class="row">
 				<div class="col-lg-12">

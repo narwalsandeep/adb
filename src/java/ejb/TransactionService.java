@@ -11,13 +11,11 @@ import entity.DbUser;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.xml.ws.WebServiceRef;
-import jsf.LoginBean;
 import wsclient.Date_Service;
 
 /**
@@ -34,7 +32,7 @@ public class TransactionService {
     EntityManager em;
 
 	@EJB
-	UserService user;
+	UserService userService;
 	
 	/**
 	 *
@@ -77,6 +75,7 @@ public class TransactionService {
 			tx = new DbTransaction(senderId, receiverId, amount, STATUS_SUCCESS,getCurrentDate());
 		// else its a  REQUEST
 		} else {
+			userService.updateAlert(senderId);
 			tx = new DbTransaction(senderId, receiverId, amount, STATUS_REQUEST_AWAITING_APPROVAL,getCurrentDate());
 		}
 			
@@ -118,7 +117,7 @@ public class TransactionService {
 
 		try{
 			
-			Double lastAmount = user.findOneById(userId).getAmount();
+			Double lastAmount = userService.findOneById(userId).getAmount();
 			Double currentAmount = (double)lastAmount - (double)amount;
 			
 			TypedQuery<DbUser> query = em.createNamedQuery("updateAmount",DbUser.class);
@@ -138,7 +137,7 @@ public class TransactionService {
 	public int addTotalAmount(Long userId, Double amount) {
 		try{
 			
-			Double lastAmount = user.findOneById(userId).getAmount();
+			Double lastAmount = userService.findOneById(userId).getAmount();
 			Double currentAmount = (double)lastAmount + (double)amount;
 			
 			TypedQuery<DbUser> query = em.createNamedQuery("updateAmount",DbUser.class);
@@ -180,6 +179,7 @@ public class TransactionService {
 		}
 	}
 
+	
 	private String getCurrentDate() {
 		wsclient.Date port = service.getDatePort();
 		return port.getCurrentDate();

@@ -62,5 +62,23 @@ public class UserService{
 		
 	}
 
-	
+	public synchronized int updateAlert(Long id){
+		
+		try{
+			
+			Integer lastAlerts = findOneById(id).getAlerts();
+			Integer currentAlerts = (Integer)lastAlerts + 1;
+			
+			TypedQuery<DbUser> query = em.createNamedQuery("updateAlerts",DbUser.class);
+			query.setParameter("id", id);
+			query.setParameter("alerts", currentAlerts);
+			int tx = query.executeUpdate();			
+			return tx;
+			
+		} catch(NoResultException e) {
+			System.out.println(e.getMessage());
+		}
+		return 0;
+
+	}
 }
