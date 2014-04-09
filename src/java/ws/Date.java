@@ -6,6 +6,9 @@
 
 package ws;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -20,6 +23,7 @@ public class Date {
 	@WebMethod(operationName = "getCurrentDate")
 	public String getCurrentDate() {
 		
-		return "d";
+		String date = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(Calendar.getInstance().getTime());
+		return date;
 	}
 }

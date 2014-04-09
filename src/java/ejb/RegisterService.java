@@ -15,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.xml.ws.WebServiceRef;
+import wsclient.Date_Service;
 
 /**
  *
@@ -22,6 +24,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RegisterService {
+	@WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/A/Date.wsdl")
+	private Date_Service service;
 	
     @PersistenceContext
     EntityManager em;
@@ -48,7 +52,7 @@ public class RegisterService {
 		DbGroup group;
 		
 		String newPwd = _hash(passwd);
-		user = new DbUser(email, newPwd, name, currency, initialAmount);
+		user = new DbUser(email, newPwd, name, currency, initialAmount,getCurrentDate());
 		String utype = "users";
 		group = new DbGroup(email, utype);
 		
@@ -72,5 +76,10 @@ public class RegisterService {
 		BigInteger bigInt = new BigInteger(1, digest);
 		return bigInt.toString(16);
 		
+	}
+
+	private String getCurrentDate() {
+		wsclient.Date port = service.getDatePort();
+		return port.getCurrentDate();
 	}
 }
