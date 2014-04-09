@@ -16,7 +16,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.xml.ws.WebServiceRef;
 import jsf.LoginBean;
+import wsclient.Date_Service;
 
 /**
  *
@@ -24,6 +26,9 @@ import jsf.LoginBean;
  */
 @Stateless
 public class TransactionService {
+	
+	@WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/A/Date.wsdl")
+	private Date_Service service;
 
 	@PersistenceContext
     EntityManager em;
@@ -69,9 +74,10 @@ public class TransactionService {
 		if("SEND".equals(txType)) {
 			deductTotalAmount(senderId,amount);
 			addTotalAmount(receiverId,amount);
-			tx = new DbTransaction(senderId, receiverId, amount, STATUS_SUCCESS);
+			tx = new DbTransaction(senderId, receiverId, amount, STATUS_SUCCESS,getCurrentDate());
+		// else its a  REQUEST
 		} else {
-			tx = new DbTransaction(senderId, receiverId, amount, STATUS_REQUEST_AWAITING_APPROVAL);
+			tx = new DbTransaction(senderId, receiverId, amount, STATUS_REQUEST_AWAITING_APPROVAL,getCurrentDate());
 		}
 			
 		em.persist(tx);
@@ -108,15 +114,15 @@ public class TransactionService {
 		}
 	}
 
-	private int deductTotalAmount(Long senderId, Double amount) {
+	public int deductTotalAmount(Long userId, Double amount) {
 
 		try{
 			
-			Double lastAmount = user.findOneById(senderId).getAmount();
+			Double lastAmount = user.findOneById(userId).getAmount();
 			Double currentAmount = (double)lastAmount - (double)amount;
 			
-			TypedQuery<DbUser> query = em.createNamedQuery("deductTotalAmount",DbUser.class);
-			query.setParameter("id", senderId);
+			TypedQuery<DbUser> query = em.createNamedQuery("updateAmount",DbUser.class);
+			query.setParameter("id", userId);
 			query.setParameter("amount", currentAmount);
 			int tx = query.executeUpdate();
 			
@@ -127,18 +133,39 @@ public class TransactionService {
 		}
 		return 0;
 		
+	}
+
+	public int addTotalAmount(Long userId, Double amount) {
+		try{
+			
+			Double lastAmount = user.findOneById(userId).getAmount();
+			Double currentAmount = (double)lastAmount + (double)amount;
+			
+			TypedQuery<DbUser> query = em.createNamedQuery("updateAmount",DbUser.class);
+			query.setParameter("id", userId);
+			query.setParameter("amount", currentAmount);
+			int tx = query.executeUpdate();
+			
+			return tx;
+		} catch(NoResultException e) {
+			//return 0;
+			System.out.println(e.getMessage());
+		}
+		return 0;
 		
 	}
 
-	private void addTotalAmount(Long receiverId, Double amount) {
-	}
-
-	public void approvePayment(Long id) {
+	public void approvePayment(DbTransaction tx) {
 		
 		try{
 			TypedQuery<DbTransaction> query = em.createNamedQuery("approvePayment",DbTransaction.class);
-			query.setParameter("id", id);
+			query.setParameter("id", tx.getId());
 			query.executeUpdate();			
+			
+			// reset Total Balance for both Users because we are approving
+			deductTotalAmount(tx.getSenderId(),tx.getAmount());
+			addTotalAmount(tx.getReceiverId(),tx.getAmount());
+
 		} catch(NoResultException e) {
 		}
 	}
@@ -151,6 +178,11 @@ public class TransactionService {
 			query.executeUpdate();			
 		} catch(NoResultException e) {
 		}
+	}
+
+	private String getCurrentDate() {
+		wsclient.Date port = service.getDatePort();
+		return port.getCurrentDate();
 	}
 
 

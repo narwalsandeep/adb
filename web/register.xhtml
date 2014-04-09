@@ -6,25 +6,28 @@
 
     <ui:define name="content">
 		<p><h4>Register</h4></p>
-		<h:form styleClass="form-horizontal col-lg-6">
-		
+		<h:form  id="registerForm" styleClass="form-horizontal col-lg-6">
+		<h:message styleClass="text text-danger" for="registerError" id="registerError"/>
 		<div class="alert alert-warning">
 		Email:
-		<h:message for="email" id="email_message"/>
+		<small class="text text-danger"><h:message for="email" id="email_message"/></small>
 		<h:inputText id="email"
 					 styleClass="form-control"
 					 value="#{registerBean.email}" 
 					 required="true" 
-					 requiredMessage="Email is required." >
+					 requiredMessage="... required."
+					 validatorMessage="... minimum length is 5" >
 					<f:validateLength minimum="1"/>
 
 		</h:inputText>
-		Password:<h:message for="passwd" id="passwd_message"/>
+		Password:
+		<small class="text text-danger"><h:message for="passwd" id="passwd_message"/></small>
 		<h:inputSecret id="passwd"
 					 styleClass="form-control"
 					 value="#{registerBean.passwd}" 
 					 required="true" 
-					 requiredMessage="Password is required" >
+					 requiredMessage="... required"
+					 validatorMessage="... minimum length is 3" >
 					<f:validateLength minimum="1"/>
 		</h:inputSecret>
 		
@@ -32,23 +35,23 @@
 		<br />
 		
 		Your Full Name:
-		<h:message for="name" id="name_message"/>
+		<small class="text text-danger"><h:message for="name" id="name_message"/></small>
 		<h:inputText id="name"
 					 styleClass="form-control"
 					 value="#{registerBean.name}" 
 					 required="true" 
-					 requiredMessage="Name is required." >
+					 requiredMessage="... required." >
 		</h:inputText>
 		<br />
 		
-		Your Currency:
-		<h:message for="currency" id="currency_message"/>
-		<h:inputText id="currency"
-					 styleClass="form-control"
-					 value="#{registerBean.currency}" 
-					 required="true" 
-					 requiredMessage="Currency is required." >
-		</h:inputText>
+		Your Default Currency:
+		<small class="text text-danger"><h:message for="currency" id="currency_message"/></small>
+		<h:selectOneMenu styleClass="form-control" required="true" requiredMessage="... required" 
+						 id="currency" value="#{registerBean.currency}">
+			<f:selectItem itemValue="GBP" itemLabel="GBP" />
+			<f:selectItem itemValue="USD" itemLabel="USD" />
+		</h:selectOneMenu>
+		
 		<br />
 		<hr/>
 		

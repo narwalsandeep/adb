@@ -26,6 +26,15 @@
             <redirect></redirect>
         </navigation-case>
     </navigation-rule>
+
+	<navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dashboard</from-outcome>
+            <to-view-id>/user/transaction/dashboard.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
     
 	<!-- =========== user rules  ================================== -->
 

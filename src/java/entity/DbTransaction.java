@@ -47,6 +47,9 @@ public class DbTransaction implements Serializable {
 
     @NotNull
 	private String status;
+	
+	@NotNull
+	private String dated;
 
 	/**
 	 *
@@ -60,12 +63,14 @@ public class DbTransaction implements Serializable {
 	 * @param receiverId
 	 * @param amount
 	 * @param STATUS_SUCCESS
+	 * @param dated
 	 */
-	public DbTransaction(Long senderId, Long receiverId, Double amount, String STATUS_SUCCESS) {
+	public DbTransaction(Long senderId, Long receiverId, Double amount, String STATUS_SUCCESS, String dated) {
 		this.senderId = senderId;
 		this.receiverId = receiverId;
 		this.amount = amount;
 		this.status = STATUS_SUCCESS;
+		this.dated	= dated;
 	}
 	
 	@Override
@@ -185,4 +190,5 @@ public class DbTransaction implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 }

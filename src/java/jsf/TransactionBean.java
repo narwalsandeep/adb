@@ -12,7 +12,6 @@ import entity.DbTransaction;
 import entity.DbUser;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -29,7 +28,7 @@ import javax.inject.Named;
 public class TransactionBean implements Serializable {
 
     @EJB
-    private TransactionService tx;
+    private TransactionService txService;
     
 	@EJB
 	private UserService userService;
@@ -54,7 +53,7 @@ public class TransactionBean implements Serializable {
 		Long senderId = loginBean.getLoggedInUser().getId();
 		DbUser receiver = userService.findOneByEmail(receiverEmail);
 		if(receiver != null){
-			tx.doTransaction(senderId,receiver.getId(),amount,TYPE_SEND);
+			txService.doTransaction(senderId,receiver.getId(),amount,TYPE_SEND);
 			context.addMessage("txSendForm:sendSuccess", new FacesMessage(amount+ " GBP transferred successfully."));
 		}
 		else{
@@ -73,7 +72,7 @@ public class TransactionBean implements Serializable {
 		Long receiverId = loginBean.getLoggedInUser().getId();
 		DbUser sender = userService.findOneByEmail(senderEmail);
 		if(sender != null){
-			tx.doTransaction(sender.getId(),receiverId,amount,TYPE_REQUEST);
+			txService.doTransaction(sender.getId(),receiverId,amount,TYPE_REQUEST);
 			context.addMessage("txRequestForm:requestSuccess", new FacesMessage(amount+ " request sent successfully."));
 		}
 		else{
@@ -89,7 +88,7 @@ public class TransactionBean implements Serializable {
 	public List<DbTransaction> findAllSentTransactionsByUser(){
 
 		Long userId = loginBean.getLoggedInUser().getId();
-		return tx.findAllSentByUserId(userId);
+		return txService.findAllSentByUserId(userId);
 
 	}
 
@@ -100,14 +99,14 @@ public class TransactionBean implements Serializable {
 	public List<DbTransaction> findAllRequestTransactionsByUser(){
 
 		Long userId = loginBean.getLoggedInUser().getId();
-		return tx.findAllRequestByUserId(userId);
+		return txService.findAllRequestByUserId(userId);
 
 	}
 
 	public List<DbTransaction> findAllPendingRequestsByUser(){
 	
 		Long userId = loginBean.getLoggedInUser().getId();
-		return tx.findAllPendingRequestByUserId(userId);
+		return txService.findAllPendingRequestByUserId(userId);
 	
 	}
 	
@@ -115,21 +114,21 @@ public class TransactionBean implements Serializable {
 		return getUserService().findOneById(id).getAmount();
 	}
 
-	public void approvePayment(Long id){
+	public void approvePayment(DbTransaction transactionRecord){
 		
-		tx.approvePayment(id);
+		txService.approvePayment(transactionRecord);
 	}
 	
 	private void FacesMessage(String authentication_Failed_Consider_Registration) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
-	public TransactionService getTx() {
-		return tx;
+	public TransactionService getTxService() {
+		return txService;
 	}
 
-	public void setTx(TransactionService tx) {
-		this.tx = tx;
+	public void setTxService(TransactionService txService) {
+		this.txService = txService;
 	}
 
 	public UserService getUserService() {

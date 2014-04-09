@@ -7,11 +7,14 @@
 package jsf;
 
 import ejb.RegisterService;
+import ejb.UserService;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -25,6 +28,9 @@ public class RegisterBean {
     @EJB
     RegisterService register;
     
+	@EJB
+	UserService userService;
+	
     String email;
     String passwd;
     String name;
@@ -42,8 +48,18 @@ public class RegisterBean {
 	 * @throws UnsupportedEncodingException
 	 */
 	public String register() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        register.doRegister(email, passwd, name, currency);
-        return "success";
+       
+		FacesContext context = FacesContext.getCurrentInstance();
+        
+		if(validateEmail(email)){
+			register.doRegister(email, passwd, name, currency);
+			return "success";
+		}
+		else{
+			context.addMessage("registerForm:registerError", 
+				new FacesMessage("Username/Email already Exists."));
+			return "register";
+		}
     }
 
 	/**
@@ -124,6 +140,15 @@ public class RegisterBean {
 	 */
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+
+	private boolean validateEmail(String email) {
+		
+		// if returned null, return true else false
+		if(userService.findOneByEmail(email) == null){
+			return true;
+		}
+		return false;
 	}
     
 }

@@ -77,14 +77,18 @@ public class LoginBean implements Serializable {
 			request.login(this.email, this.passwd);
 			this.dbUser = userService.findOneByEmail(this.email);
 			
-			return "/user/home";
+			return "dashboard";
 		
 		} catch (ServletException e) {
-			context.addMessage("loginForm:authError", 
-					new FacesMessage("Authentication Failed. Consider Registration. "+e.getMessage()
-            ));
-			return "/error";
-        }
+			if(this.isLoggedIn()){
+				return "/error";
+			}
+			else{
+				context.addMessage("loginForm:authError", 
+					new FacesMessage("Authentication Failed. Consider Registration."));
+				return "/login";
+			}
+		}
     }
 
 	/**
@@ -126,10 +130,6 @@ public class LoginBean implements Serializable {
 	 */
 	public DbUser getLoggedInUser(){
 		return this.dbUser;
-	}
-	
-	private void FacesMessage(String authentication_Failed_Consider_Registration) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 }
