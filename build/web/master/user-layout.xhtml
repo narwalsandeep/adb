@@ -33,7 +33,7 @@
 						<h:link styleClass="" value="Dashboard" outcome="dashboard" />
 					</li>
 					<li >
-						<h:link styleClass="" value="Request Alerts (#{loginBean.loggedInUser.alerts})" outcome="alerts" />
+						<h:link styleClass="" value="Request Alerts (#{userBean.findOneById(loginBean.loggedInUser.id).alerts})" outcome="alerts" />
 					</li>
 					<li >
 						<h:link styleClass="" value="Send" outcome="send" />
@@ -42,10 +42,11 @@
 						<h:link styleClass="" value="Request" outcome="request" />
 					</li>
 					<li >
-						<h:commandLink   value="Logout" action="#{loginBean.logout()}"/>
+						<h:commandLink   value="Logout"  styleClass="text-danger" action="#{loginBean.logout()}"/>
 					</li>
 				</ul>
 				</h:form>
+				<br />
 				<span class="text-warning">Welcome #{loginBean.loggedInUser.name}</span>
 			</div>
 			<div class="row">

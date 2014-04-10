@@ -30,6 +30,7 @@ public class LoginBean implements Serializable {
 	
 	@EJB
 	UserService userService;
+	
 	/**
 	 *
 	 * @return
@@ -70,23 +71,26 @@ public class LoginBean implements Serializable {
        
 		FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        System.out.println("Username: " + this.email);
-        System.out.println("Password: " + this.passwd);
         
 		try {	
 			request.login(this.email, this.passwd);
-			this.dbUser = userService.findOneByEmail(this.email);
-			
-			return "dashboard";
+			dbUser = userService.findOneByEmail(this.email);
+			String utype = userService.getGroupByUserId(dbUser.getEmail());
+			if(utype.equals("admin")){
+				return "admin_home";							
+			}
+			else{
+				return "dashboard";							
+			}
 		
 		} catch (ServletException e) {
 			if(this.isLoggedIn()){
-				return "/error";
+				return "error";
 			}
 			else{
 				context.addMessage("loginForm:authError", 
 					new FacesMessage("Authentication Failed. Consider Registration."));
-				return "/login";
+				return "login";
 			}
 		}
     }

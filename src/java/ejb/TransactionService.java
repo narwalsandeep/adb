@@ -185,6 +185,16 @@ public class TransactionService {
 		return port.getCurrentDate();
 	}
 
+	public List<DbTransaction> findAllTransactions() {
+		try{
+			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllTransactions",DbTransaction.class);
+			List<DbTransaction> tx = query.getResultList();
+			return tx;
+		} catch(NoResultException e) {
+			return null;
+		}
+	}
+
 
 
 }

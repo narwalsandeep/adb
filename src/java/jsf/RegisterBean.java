@@ -10,6 +10,7 @@ import ejb.RegisterService;
 import ejb.UserService;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -149,5 +150,5 @@ public class RegisterBean {
 		}
 		return false;
 	}
-    
+	    
 }

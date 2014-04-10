@@ -5,10 +5,13 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="content">
-		<p><h4>Send Money</h4></p>
-		<h:form id="txSendForm" styleClass="form-horizontal col-lg-6">
+	<p><h4>Send Money</h4></p>
+	<h:form id="txSendForm" styleClass="form-horizontal col-lg-6">
+	
+		<strong>
 		<h:message styleClass="text text-danger" for="sendError" id="sendError"/>
-		<h:message styleClass="text text-success" for="sendSuccess" id="sendSuccess"/>
+		<h:message styleClass="text text-warning" for="sendSuccess" id="sendSuccess"/>
+		</strong>
 		<br/>
 
 		Email Of Receiver:

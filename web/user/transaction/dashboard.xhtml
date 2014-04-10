@@ -6,8 +6,8 @@
 
     <ui:define name="content">
 		
-		<div class="alert alert-info"> Total Amount in your account is : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)} #{loginBean.loggedInUser.currency}</strong> </div>
-		<hr/>
+		<div class="text text-success pull-right"> Available Balance : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)} #{loginBean.loggedInUser.currency}</strong> </div>
+		<br/><br/>
 		<p>
 			<h4>
 				 Money Sent
@@ -18,7 +18,7 @@
 		<div class="panel-heading"><small class="text text-primary"> Money You have sent to other users.</small>
 </div>
 		<h:dataTable value="#{transactionBean.findAllSentTransactionsByUser()}" var="tx"
-					  styleClass="table table-bordered table-condensed table-hover table-responsive">
+					  styleClass="table table-condensed table-hover table-responsive">
 			 <h:column>
 				 <f:facet name="header">Receiver Name </f:facet>
 					 #{userBean.findOneById(tx.receiverId).getName()}
@@ -49,7 +49,7 @@
 		<div class="panel-heading" ><small class="text text-danger"> It also include your requests. AWAITING APPROVAL will not be added to your Total Balance. It will be added only after its APPROVED.</small>
 </div>
 		<h:dataTable value="#{transactionBean.findAllRequestTransactionsByUser()}" var="tx"
-					  styleClass="table table-bordered table-condensed table-hover table-responsive">
+					  styleClass="table table-condensed table-hover table-responsive">
 			 <h:column>
 				 <f:facet name="header">Sender Name </f:facet>
 					 #{userBean.findOneById(tx.senderId).getName()}

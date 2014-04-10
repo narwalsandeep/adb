@@ -49,6 +49,9 @@ public class UserBean {
 		return userService.findOneById(loginBean.getLoggedInUser().getId()).getAlerts();
 	}
 	
+	public void resetAlerts(){
+		userService.resetAlerts(loginBean.getLoggedInUser().getId());
+	}
 
 	public String getEmail() {
 		return email;

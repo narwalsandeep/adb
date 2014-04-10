@@ -6,19 +6,22 @@
 
     <ui:define name="content">
 		
-		<div class="alert alert-info"> Total Amount in your account is : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)} #{loginBean.loggedInUser.currency}</strong> </div>
-		<hr/>
+		#{userBean.resetAlerts()}
+		
+		<div class="text text-success pull-right"> Available Balance : <strong>#{transactionBean.getCurrentAmount(loginBean.loggedInUser.id)} #{loginBean.loggedInUser.currency}</strong> </div>
+		<br/><br/>
 		<p>
 			<h4>
 				 Pending Money Requests
 			</h4>
 		</p>
-		
+		<strong><h:message styleClass="text text-danger" for="error" id="error"/></strong>
+
 		<div class="panel panel-default">
-		<div class="panel-heading"><small class="text text-primary"> Money requests by other users.</small>
+		<div class="panel-heading"><small class="text text-primary"> Money requests by other users. NOTE: system will only approve if you have enough amount.</small>
 </div>
 		<h:dataTable value="#{transactionBean.findAllPendingRequestsByUser()}" var="tx"
-					  styleClass="table table-bordered table-condensed table-hover table-responsive">
+					  styleClass="table table-condensed table-hover table-responsive">
 			 <h:column>
 				 <f:facet name="header">Request By (Name) </f:facet>
 					 #{userBean.findOneById(tx.receiverId).getName()}

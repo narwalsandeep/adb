@@ -5,10 +5,13 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="content">
-		<p><h4>Request Money</h4></p>
-		<h:form id="txRequestForm" styleClass="form-horizontal col-lg-6">
+	<p><h4>Request Money</h4></p>
+	<h:form id="txRequestForm" styleClass="form-horizontal col-lg-6">
+		<strong>
+			
 		<h:message styleClass="text text-danger" for="requestError" id="requestError"/>
-		<h:message styleClass="text text-success" for="requestSuccess" id="requestSuccess"/>
+		<h:message styleClass="text text-warning" for="requestSuccess" id="requestSuccess"/>
+		</strong>
 		<br/>
 
 		Email From Whom You Want To Request Money:

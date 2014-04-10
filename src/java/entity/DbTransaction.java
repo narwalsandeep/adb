@@ -28,6 +28,9 @@ import javax.validation.constraints.NotNull;
                 query="update DbTransaction set status='SUCCESS' WHERE id=:id"),
 	@NamedQuery(name="rejectPayment",
                 query="update DbTransaction set status='REJECT' WHERE id=:id"),
+	@NamedQuery(name="findAllTransactions",
+                query="SELECT tx from DbTransaction tx")
+	
 
 }) 
 

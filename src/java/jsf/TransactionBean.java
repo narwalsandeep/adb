@@ -119,13 +119,28 @@ public class TransactionBean implements Serializable {
 	
 	}
 	
+	public List<DbTransaction> findAllTransactions(){
+
+		return txService.findAllTransactions();
+		
+	}
+	
 	public Double getCurrentAmount(Long id){
 		return getUserService().findOneById(id).getAmount();
 	}
 
 	public void approvePayment(DbTransaction transactionRecord){
+	
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		Double pendingMoney = userService.findOneById(transactionRecord.getSenderId()).getAmount();
 		
-		txService.approvePayment(transactionRecord);
+		if(pendingMoney < transactionRecord.getAmount()){
+			context.addMessage("error", new FacesMessage("ERROR: Not enough money to send. Only "+ pendingMoney+" left."));
+		}
+		else{
+			txService.approvePayment(transactionRecord);
+		}
 	}
 	
 	public TransactionService getTxService() {

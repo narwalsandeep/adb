@@ -6,6 +6,7 @@
 
 package ejb;
 
+import entity.DbGroup;
 import entity.DbUser;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -76,9 +77,41 @@ public class UserService{
 			return tx;
 			
 		} catch(NoResultException e) {
-			System.out.println(e.getMessage());
 		}
 		return 0;
 
+	}
+
+	public synchronized void resetAlerts(Long id) {
+
+		try{
+			
+			Integer currentAlerts = 0;
+			
+			TypedQuery<DbUser> query = em.createNamedQuery("updateAlerts",DbUser.class);
+			query.setParameter("id", id);
+			query.setParameter("alerts", currentAlerts);
+			query.executeUpdate();			
+			
+		} catch(NoResultException e) {
+
+		}
+	}
+
+	public String getGroupByUserId(String email) {
+		try{
+			
+			Integer currentAlerts = 0;
+			
+			TypedQuery<DbGroup> query = em.createNamedQuery("findUser",DbGroup.class);
+			DbGroup user = query.setParameter("email", email).getSingleResult();
+			return user.getUtype();
+			
+		} catch(NoResultException e) {
+
+		}
+		return null;
+		
+		
 	}
 }

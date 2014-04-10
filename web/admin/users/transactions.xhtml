@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/layout.xhtml"
+<ui:composition template="/master/admin-layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -8,25 +8,33 @@
 
 		<p>
 			<h5>
-				User Transactions Users
+				Transactions By Users
 			</h5>
 		</p>
 		
 		<div class="panel panel-default">
 		<div class="panel-heading"><small class="text text-info">Transaction For User</small></div>
-		<h:dataTable value="#{transactionBean.findAllTransactionsByUser()}" var="transaction"
-					  styleClass="">
+		<h:dataTable value="#{transactionBean.findAllTransactions()}" var="tx"
+					  styleClass="table table-condensed table-hover table-responsive">
 			 <h:column>
-				 <f:facet name="header">Sent To</f:facet>
-					 #{transaction.senderId}
+				 <f:facet name="header">Sender</f:facet>
+					 #{tx.senderId}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Receiver</f:facet>
+					 #{tx.receiverId}
 			 </h:column>
 			 <h:column>
 				 <f:facet name="header">Amount</f:facet>
-					 #{transaction.amount}
+					 #{tx.amount}
+			 </h:column>
+			 <h:column>
+				 <f:facet name="header">Status</f:facet>
+					 #{tx.status}
 			 </h:column>
 			 <h:column>
 				 <f:facet name="header">Dated</f:facet>
-					 #{transaction.dated}
+					 #{tx.dated}
 			 </h:column>
 		 </h:dataTable>
 		</div>
