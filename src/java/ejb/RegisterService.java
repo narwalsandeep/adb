@@ -24,6 +24,7 @@ import wsclient.Date_Service;
  */
 @Stateless
 public class RegisterService {
+	
 	@WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/A/Date.wsdl")
 	private Date_Service service;
 	
