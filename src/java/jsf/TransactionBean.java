@@ -51,8 +51,17 @@ public class TransactionBean implements Serializable {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		Long senderId = loginBean.getLoggedInUser().getId();
+		
+		Double pendingMoney = userService.findOneById(senderId).getAmount();
+		
+		if(pendingMoney < amount){
+			context.addMessage("txSendForm:sendError", new FacesMessage("ERROR: Not enough money to send. Only "+ pendingMoney+" left."));
+			return "/user/transaction/send";
+		}
+		
 		DbUser receiver = userService.findOneByEmail(receiverEmail);
 		if(receiver != null){
+			
 			txService.doTransaction(senderId,receiver.getId(),amount,TYPE_SEND);
 			context.addMessage("txSendForm:sendSuccess", new FacesMessage(amount+ " GBP transferred successfully."));
 		}
