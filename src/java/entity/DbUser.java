@@ -53,8 +53,13 @@ public class DbUser implements Serializable{
 	
 	private String dated;
 	
+<<<<<<< HEAD
 	private Integer alerts;
 	
+=======
+	private Boolean alertFlag;
+
+>>>>>>> b2
 	/**
 	 *
 	 */
@@ -70,7 +75,11 @@ public class DbUser implements Serializable{
 	 * @param dated
 	 * @param alert
 	 */
+<<<<<<< HEAD
 	public DbUser(String email, String passwd, String name, String currency, Double amount, String dated, Integer alert) {
+=======
+	public DbUser(String email, String passwd, String name, String currency, Double amount, String dated) {
+>>>>>>> b2
 		
 		this.email		= email;
         this.passwd		= passwd;
@@ -78,8 +87,11 @@ public class DbUser implements Serializable{
         this.currency	= currency;
 		this.amount		= amount;
 		this.dated		= dated;
+<<<<<<< HEAD
 		this.alerts		= alert;
  
+=======
+>>>>>>> b2
 	}
 	
 	@Override
@@ -250,6 +262,14 @@ public class DbUser implements Serializable{
 	 */
 	public void setAlerts(Integer alerts) {
 		this.alerts = alerts;
+	}
+
+	public String getDated() {
+		return dated;
+	}
+
+	public void setDated(String dated) {
+		this.dated = dated;
 	}
 
 	

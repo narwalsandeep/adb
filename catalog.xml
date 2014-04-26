@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+<<<<<<< HEAD
+=======
+    <system systemId="http://localhost:8080/DateWSService/DateWS?Tester" uri="src/conf/xml-resources/web-service-references/DateWS_Tester/wsdl/localhost_8080/DateWSService/DateWS.tester"/>
+    <system systemId="http://localhost:8080/DateWSService/DateWS?WSDL" uri="src/conf/xml-resources/web-service-references/DateWS/wsdl/localhost_8080/DateWSService/DateWS.wsdl"/>
+    <system systemId="http://localhost:8080/DateWSService/DateWS?xsd=1" uri="src/conf/xml-resources/web-service-references/DateWS/wsdl/localhost_8080/DateWSService/DateWS.xsd_1.xsd"/>
+>>>>>>> b2
     <system systemId="http://localhost:8080/A/Date?WSDL" uri="src/conf/xml-resources/web-service-references/Date/wsdl/localhost_8080/A/Date.wsdl"/>
     <system systemId="http://localhost:8080/A/Date?xsd=1" uri="src/conf/xml-resources/web-service-references/Date/wsdl/localhost_8080/A/Date.xsd_1.xsd"/>
 </catalog>

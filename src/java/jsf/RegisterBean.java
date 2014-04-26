@@ -48,6 +48,7 @@ public class RegisterBean {
 	 * @throws UnsupportedEncodingException
 	 */
 	public String register() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+<<<<<<< HEAD
        
 		FacesContext context = FacesContext.getCurrentInstance();
         
@@ -62,6 +63,11 @@ public class RegisterBean {
 				new FacesMessage("Username/Email already Exists."));
 			return "register";
 		}
+=======
+		
+		register.doRegister(email, passwd, name, currency);
+        return "success";
+>>>>>>> b2
     }
 
 	/**
@@ -144,6 +150,7 @@ public class RegisterBean {
 		this.currency = currency;
 	}
 
+<<<<<<< HEAD
 	private boolean validateEmail(String email) {
 		
 		// if returned null, return true else false
@@ -153,4 +160,6 @@ public class RegisterBean {
 		return false;
 	}
 	    
+=======
+>>>>>>> b2
 }

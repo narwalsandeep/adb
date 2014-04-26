@@ -8,6 +8,7 @@ package ejb;
 
 import entity.DbGroup;
 import entity.DbUser;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -19,12 +20,17 @@ import javax.persistence.PersistenceContext;
 import javax.xml.ws.WebServiceRef;
 import wsclient.Date_Service;
 
+<<<<<<< HEAD
 /**
  *
  * @author "as2d3f"
  */
+=======
+>>>>>>> b2
 @Stateless
-public class RegisterService {
+public class RegisterService{
+	@WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/A/Date.wsdl")
+	private Date_Service service;
 	
 	// out wsdl location
 	@WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/A/Date.wsdl")
@@ -56,7 +62,11 @@ public class RegisterService {
 		
 		// hash the password and save to db
 		String newPwd = _hash(passwd);
+<<<<<<< HEAD
 		user = new DbUser(email, newPwd, name, currency, initialAmount,getCurrentDate(),0);
+=======
+		user = new DbUser(email, newPwd, name, currency, initialAmount, getCurrentDate());
+>>>>>>> b2
 		String utype = "users";
 		group = new DbGroup(email, utype);
 		
@@ -85,8 +95,19 @@ public class RegisterService {
 	}
 
 	private String getCurrentDate() {
+<<<<<<< HEAD
 		// this call the web service and get the current date
 		wsclient.Date port = service.getDatePort();
 		return port.getCurrentDate();
 	}
+=======
+		// Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+		// If the calling of port operations may lead to race condition some synchronization is required.
+		wsclient.Date port = service.getDatePort();
+		return port.getCurrentDate();
+	}
+
+
+
+>>>>>>> b2
 }

@@ -10,32 +10,53 @@
 		<h:message styleClass="text text-danger" for="registerError" id="registerError"/>
 		<div class="alert alert-warning">
 		Email:
+<<<<<<< HEAD
 		<small class="text text-danger"><h:message for="email" id="email_message"/></small>
+=======
+		<small><h:message for="email" styleClass="text text-danger" id="email_message"/></small>
+>>>>>>> b2
 		<h:inputText id="email"
 					 styleClass="form-control"
 					 value="#{registerBean.email}" 
 					 required="true" 
 					 requiredMessage="... required."
 					 validatorMessage="... minimum length is 5" >
+<<<<<<< HEAD
 					<f:validateLength minimum="1"/>
 
 		</h:inputText>
 		Password:
 		<small class="text text-danger"><h:message for="passwd" id="passwd_message"/></small>
+=======
+			<f:validateLength minimum="5" />
+
+		</h:inputText>
+		Password:
+		<small><h:message for="passwd" styleClass="text text-danger" id="passwd_message"/></small>
+>>>>>>> b2
 		<h:inputSecret id="passwd"
 					 styleClass="form-control"
 					 value="#{registerBean.passwd}" 
 					 required="true" 
 					 requiredMessage="... required"
+<<<<<<< HEAD
 					 validatorMessage="... minimum length is 3" >
 					<f:validateLength minimum="1"/>
+=======
+					 validatorMessage="... minimum length is 4" >
+					<f:validateLength minimum="4"/>
+>>>>>>> b2
 		</h:inputSecret>
 		
 		</div>
 		<br />
 		
 		Your Full Name:
+<<<<<<< HEAD
 		<small class="text text-danger"><h:message for="name" id="name_message"/></small>
+=======
+		<small><h:message for="name" styleClass="text text-danger" id="name_message"/></small>
+>>>>>>> b2
 		<h:inputText id="name"
 					 styleClass="form-control"
 					 value="#{registerBean.name}" 
@@ -44,6 +65,7 @@
 		</h:inputText>
 		<br />
 		
+<<<<<<< HEAD
 		Your Default Currency:
 		<small class="text text-danger"><h:message for="currency" id="currency_message"/></small>
 		<h:selectOneMenu styleClass="form-control" required="true" requiredMessage="... required" 
@@ -52,6 +74,16 @@
 			<f:selectItem itemValue="USD" itemLabel="USD" />
 		</h:selectOneMenu>
 		
+=======
+		Your Currency:
+		<small><h:message for="currency"  styleClass="text text-danger" id="currency_message"/></small>
+		<h:inputText id="currency"
+					 styleClass="form-control"
+					 value="#{registerBean.currency}" 
+					 required="true" 
+					 requiredMessage="... required." >
+		</h:inputText>
+>>>>>>> b2
 		<br />
 		<hr/>
 		
