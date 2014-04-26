@@ -51,11 +51,13 @@ public class RegisterBean {
        
 		FacesContext context = FacesContext.getCurrentInstance();
         
+		// validate the email, if it does not exists and register
 		if(validateEmail(email)){
 			registerService.doRegister(email, passwd, name, currency);
 			return "success";
 		}
 		else{
+			// else error
 			context.addMessage("registerForm:registerError", 
 				new FacesMessage("Username/Email already Exists."));
 			return "register";

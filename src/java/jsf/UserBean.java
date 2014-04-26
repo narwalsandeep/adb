@@ -41,46 +41,90 @@ public class UserBean {
 		return userService.findAll();
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
 	public DbUser findOneById(Long id){
 		return userService.findOneById(id);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public Integer getAlerts(){
 		return userService.findOneById(loginBean.getLoggedInUser().getId()).getAlerts();
 	}
 	
+	/**
+	 *
+	 */
 	public void resetAlerts(){
 		userService.resetAlerts(loginBean.getLoggedInUser().getId());
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 *
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 *
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getAmount() {
 		return amount;
 	}
 
+	/**
+	 *
+	 * @param amount
+	 */
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public UserService getUserService() {
 		return userService;
 	}
 
+	/**
+	 *
+	 * @param userService
+	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}

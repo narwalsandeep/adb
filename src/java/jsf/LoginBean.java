@@ -19,6 +19,10 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *
+ * @author sandeepnarwal
+ */
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
@@ -69,12 +73,22 @@ public class LoginBean implements Serializable {
 	 */
 	public String auth() {
        
+		// FAces context, used to send the message.
 		FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+		// request object used for login
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
 		try {	
+			
+			// login now, 
 			request.login(this.email, this.passwd);
+			
+			// get the logged in user
 			dbUser = userService.findOneByEmail(this.email);
+			
+			// get his user type and redirect to required pages 
+			// admin or dashboard 
 			String utype = userService.getGroupByUserId(dbUser.getEmail());
 			if(utype.equals("admin")){
 				return "admin_home";							
@@ -84,6 +98,7 @@ public class LoginBean implements Serializable {
 			}
 		
 		} catch (ServletException e) {
+			// else some error
 			if(this.isLoggedIn()){
 				return "error";
 			}
@@ -100,19 +115,20 @@ public class LoginBean implements Serializable {
 	 * @throws java.io.IOException 
 	 */
 	public void logout() throws IOException {
+		
+		// on logout null the dbuser we used to add, as its scope is in session
 		this.dbUser = null;
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
+			// also logout from request object
             request.logout();
 			ExternalContext xContext = context.getExternalContext();
 			xContext.invalidateSession();
+			
+			// redirect  back to login page
 			xContext.redirect(xContext.getRequestContextPath() + "/faces/login.xhtml");
-			//return "/login";
-            //context.addMessage(null, new FacesMessage("User is logged out"));
         } catch (ServletException e) {
-			//return "/error-exception";
-			//context.addMessage(null, new FacesMessage("Logout failed."));
         }
     }
 
@@ -121,6 +137,8 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public boolean isLoggedIn(){
+		
+		// to check elsewhere if user is logged in
 		if(this.dbUser == null) {
 			return false;
 		} else {

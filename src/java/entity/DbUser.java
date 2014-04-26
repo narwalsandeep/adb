@@ -16,6 +16,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author "as2d3f"
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name="findAll",
@@ -63,6 +67,8 @@ public class DbUser implements Serializable{
 	 * @param name
 	 * @param currency
 	 * @param amount
+	 * @param dated
+	 * @param alert
 	 */
 	public DbUser(String email, String passwd, String name, String currency, Double amount, String dated, Integer alert) {
 		
@@ -214,19 +220,34 @@ public class DbUser implements Serializable{
 		this.amount = amount;
 	}
 
-
+	/**
+	 *
+	 * @return
+	 */
 	public String getDated() {
 		return dated;
 	}
 
+	/**
+	 *
+	 * @param dated
+	 */
 	public void setDated(String dated) {
 		this.dated = dated;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public Integer getAlerts() {
 		return alerts;
 	}
 
+	/**
+	 *
+	 * @param alerts
+	 */
 	public void setAlerts(Integer alerts) {
 		this.alerts = alerts;
 	}

@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author sandeepnarwal
+ * @author "as2d3f"
  */
 @Entity
 @NamedQueries({
@@ -45,7 +45,6 @@ public class DbGroup implements Serializable{
 	 *
 	 * @param email
 	 * @param utype
-	 * @param type
 	 */
 	public DbGroup(String email, String utype) {
 		this.email = email;

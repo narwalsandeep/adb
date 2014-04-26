@@ -20,6 +20,10 @@ import javax.jws.WebParam;
 @WebService(serviceName = "Date")
 public class Date {
 
+	/**
+	 *
+	 * @return
+	 */
 	@WebMethod(operationName = "getCurrentDate")
 	public String getCurrentDate() {
 		

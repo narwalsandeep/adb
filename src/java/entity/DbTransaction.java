@@ -16,6 +16,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author "as2d3f"
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name="findAllSentByUserId",
@@ -194,10 +198,18 @@ public class DbTransaction implements Serializable {
 		this.status = status;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getDated() {
 		return dated;
 	}
 
+	/**
+	 *
+	 * @param dated
+	 */
 	public void setDated(String dated) {
 		this.dated = dated;
 	}

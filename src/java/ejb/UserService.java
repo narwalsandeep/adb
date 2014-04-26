@@ -9,6 +9,7 @@ package ejb;
 import entity.DbGroup;
 import entity.DbUser;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -29,7 +30,11 @@ public class UserService{
 	 *
 	 * @return
 	 */
+	@RolesAllowed({"admin"})
 	public synchronized List<DbUser> findAll() {
+		
+		// get the list of all users,
+		// NOTE this also get admin.
         List<DbUser> user = em.createNamedQuery("findAll").getResultList();
         return user;
     }
@@ -41,6 +46,7 @@ public class UserService{
 	 */
 	public synchronized DbUser findOneByEmail(String email) {
 		
+		// find a user provide his email
 		try{
 			TypedQuery<DbUser> query = em.createNamedQuery("findOneByEmail",DbUser.class);
 			DbUser user = query.setParameter("email", email).getSingleResult();
@@ -51,8 +57,14 @@ public class UserService{
 	
 	}
 	
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
 	public synchronized DbUser findOneById(Long id){
 		
+		// find a user provided his ID
 		try{
 			TypedQuery<DbUser> query = em.createNamedQuery("findOneById",DbUser.class);
 			DbUser user = query.setParameter("id", id).getSingleResult();
@@ -63,8 +75,17 @@ public class UserService{
 		
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
+	@RolesAllowed({"users"})
 	public synchronized int updateAlert(Long id){
 		
+		// update alert/
+		// this is used when someone request a payment
+		// the number of alerts are incremented
 		try{
 			
 			Integer lastAlerts = findOneById(id).getAlerts();
@@ -82,8 +103,15 @@ public class UserService{
 
 	}
 
+	/**
+	 *
+	 * @param id
+	 */
+	@RolesAllowed({"users"})
 	public synchronized void resetAlerts(Long id) {
 
+		// when user click on alert in dashboard, reset it.
+		// means he has seen the alerts
 		try{
 			
 			Integer currentAlerts = 0;
@@ -98,7 +126,14 @@ public class UserService{
 		}
 	}
 
+	/**
+	 *
+	 * @param email
+	 * @return
+	 */
 	public String getGroupByUserId(String email) {
+		
+		// the the group name of the user, given the user iD
 		try{
 			
 			Integer currentAlerts = 0;
@@ -111,7 +146,6 @@ public class UserService{
 
 		}
 		return null;
-		
 		
 	}
 }

@@ -9,6 +9,7 @@ package ejb;
 import entity.DbTransaction;
 import entity.DbUser;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,6 +24,7 @@ import wsclient.Date_Service;
  * @author "as2d3f"
  */
 @Stateless
+@RolesAllowed({"users","admin"})
 public class TransactionService {
 	
 	@WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/A/Date.wsdl")
@@ -53,7 +55,10 @@ public class TransactionService {
 	 *
 	 * @return
 	 */
+	@RolesAllowed({"users","admin"})
 	public synchronized List<DbTransaction> findAll() {
+		
+		// find all users 
         List<DbTransaction> tx = em.createNamedQuery("findAllByUser").getResultList();
         return tx;
     }
@@ -65,10 +70,14 @@ public class TransactionService {
 	 * @param txType
 	 * @param amount
 	 */
+	@RolesAllowed({"users"})
 	public void doTransaction(Long senderId, Long receiverId,  Double amount, String txType) {
 
 		DbTransaction tx;
 		
+		// we can have only two type of request, SEND or REQUEST
+		// this is comming for both, I just swap the receiver and sender
+		// and rest is taken care by the STATUS.
 		if("SEND".equals(txType)) {
 			deductTotalAmount(senderId,amount);
 			addTotalAmount(receiverId,amount);
@@ -83,7 +92,15 @@ public class TransactionService {
 
 	}
 
+	/**
+	 *
+	 * @param userId
+	 * @return
+	 */
+	@RolesAllowed({"users"})
 	public List<DbTransaction> findAllSentByUserId(Long userId) {
+		
+		// find all SENT payment by users give the User Id
 		try{
 			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllSentByUserId",DbTransaction.class);
 			List<DbTransaction> tx = query.setParameter("senderId", userId).getResultList();
@@ -93,7 +110,15 @@ public class TransactionService {
 		}
 	}
 
+	/**
+	 *
+	 * @param userId
+	 * @return
+	 */
+	@RolesAllowed({"users"})
 	public List<DbTransaction> findAllRequestByUserId(Long userId) {
+
+		// find all RESQUEST payment request by user, give the user ID
 		try{
 			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllRequestByUserId",DbTransaction.class);
 			List<DbTransaction> tx = query.setParameter("receiverId", userId).getResultList();
@@ -103,7 +128,15 @@ public class TransactionService {
 		}
 	}
 
+	/**
+	 *
+	 * @param userId
+	 * @return
+	 */
+	@RolesAllowed({"users"})
 	public List<DbTransaction> findAllPendingRequestByUserId(Long userId) {
+		
+		// find all pending request by the user
 		try{
 			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllPendingRequestByUserId",DbTransaction.class);
 			List<DbTransaction> tx = query.setParameter("senderId", userId).getResultList();
@@ -113,14 +146,25 @@ public class TransactionService {
 		}
 	}
 
+	/**
+	 *
+	 * @param userId
+	 * @param amount
+	 * @return
+	 */
+	@RolesAllowed({"users"})
 	public int deductTotalAmount(Long userId, Double amount) {
 
+		//deduct the total amount, 
+		// this is used when you send the money or approve the request by other user.
 		try{
 			
 			Double lastAmount = userService.findOneById(userId).getAmount();
 			Double currentAmount = (double)lastAmount - (double)amount;
 			
 			TypedQuery<DbUser> query = em.createNamedQuery("updateAmount",DbUser.class);
+			
+			// define two parameter for update sql
 			query.setParameter("id", userId);
 			query.setParameter("amount", currentAmount);
 			int tx = query.executeUpdate();
@@ -128,13 +172,23 @@ public class TransactionService {
 			return tx;
 		} catch(NoResultException e) {
 			//return 0;
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		return 0;
 		
 	}
 
+	/**
+	 *
+	 * @param userId
+	 * @param amount
+	 * @return
+	 */
+	@RolesAllowed({"users"})
 	public int addTotalAmount(Long userId, Double amount) {
+		
+		// add total amount
+		// used when you send or approve, the receiver amount is added here.
 		try{
 			
 			Double lastAmount = userService.findOneById(userId).getAmount();
@@ -154,8 +208,14 @@ public class TransactionService {
 		
 	}
 
+	/**
+	 *
+	 * @param tx
+	 */
+	@RolesAllowed({"users"})
 	public void approvePayment(DbTransaction tx) {
 		
+		// approve the payment, simple status change is happening here.
 		try{
 			TypedQuery<DbTransaction> query = em.createNamedQuery("approvePayment",DbTransaction.class);
 			query.setParameter("id", tx.getId());
@@ -169,8 +229,14 @@ public class TransactionService {
 		}
 	}
 
+	/**
+	 *
+	 * @param id
+	 */
+	@RolesAllowed({"users"})
 	public void rejectPayment(Long id) {
 		
+		// reject the payment, simple reject of payment is happing here
 		try{
 			TypedQuery<DbTransaction> query = em.createNamedQuery("rejectPayment",DbTransaction.class);
 			query.setParameter("id", id);
@@ -181,11 +247,20 @@ public class TransactionService {
 
 	
 	private String getCurrentDate() {
+		
+		// get the current date from webservice
 		wsclient.Date port = service.getDatePort();
 		return port.getCurrentDate();
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	@RolesAllowed({"admin"})
 	public List<DbTransaction> findAllTransactions() {
+		
+		// find all transaction irrespective of user and the status.
 		try{
 			TypedQuery<DbTransaction> query = em.createNamedQuery("findAllTransactions",DbTransaction.class);
 			List<DbTransaction> tx = query.getResultList();
